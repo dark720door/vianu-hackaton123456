@@ -1,4 +1,4 @@
-# 💙 VitalLink — Health Intelligence Platform
+VitalLink — Health Intelligence Platform
 
 > **Hackathon project** · Tema: *"Be the Middlemen"*
 
@@ -6,7 +6,7 @@ VitalLink este o platformă medicală inteligentă care acționează ca **interm
 
 ---
 
-## 🎯 Conceptul
+## Conceptul
 
 Ideea centrală: **tu ești nodul central al unei rețele de sănătate**. Platforma conectează:
 
@@ -18,56 +18,55 @@ Ideea centrală: **tu ești nodul central al unei rețele de sănătate**. Platf
 
 ---
 
-## ✨ Features implementate
+## Features implementate
 
-### 🔐 Autentificare cu 2 tipuri de conturi
+### Autentificare cu 2 tipuri de conturi
 - **Client** — utilizatorul care poartă dispozitivul wearable
 - **Specialist (Medic)** — are atât dashboard propriu de pacient, cât și panou de management al pacienților
 
-### 🫂 Trusted Person Network
+### Trusted Person Network
 - Fiecare utilizator poate fi în același timp:
   - **Trusted person** pentru altcineva (vizibil în secțiunea "Sunt trusted person pentru")
   - Poate adăuga **propriile trusted persons**
 - La adăugare, configurezi **granular ce poate vedea** persoana:
-  - ❤️ Date cardiace (BPM, tensiune, SpO2)
-  - 🆘 Alerte de urgență
-  - 😴 Date somn
-  - 🏃 Activitate fizică
-  - 💊 Medicație
-  - 📋 Istoric medical
-  - 📍 Locație (doar la SOS)
-- Datele restricționate apar cu 🔒 în dashboard
-
-### 📊 Dashboard customizabil
-- **Slide între date proprii și datele trusted person-ului** — pills în top: "❤️ Eu / [Nume]"
-- **Editare metrici** — buton ✏️ Editează → poți adăuga/elimina orice măsurătoare:
+  - Date cardiace (BPM, tensiune, SpO2)
+  - Alerte de urgență
+  - Date somn
+  - Activitate fizică
+  - Medicație
+  - Istoric medical
+  - Locație (doar la SOS)
+  - 
+### Dashboard customizabil
+- **Slide între date proprii și datele trusted person-ului** 
+- **Editare metrici** — buton Editează → poți adăuga/elimina orice măsurătoare:
   - BPM, Tensiune, SpO2, Somn, HRV, Temperatură, Nivel stres, Glucoză, Calorii, Greutate
 - Date live animate (BPM fluctuează în timp real)
 
-### 🤖 AI Health Assistant (Vita)
+### AI Health Assistant (Vita)
 - Conectat la vitals în timp real
 - **Detecție urgență** — când detectează cuvinte cheie (`mor`, `ajutor`, `112`, `nu respir`, `atac`, `infarct`, `lesin` etc.) activează **modul urgență** cu UI roșu + 3 butoane de acțiune rapide
 - Răspunsuri contextuale bazate pe istoricul medical și vitals curente
 
-### 🆘 Protocol SOS
+### Protocol SOS
 - Buton SOS vizibil permanent în header
 - Modal cu date medicale pre-completate automat (locație, vitale, medicație, alergii)
 - Apel direct 112 + contactare medic pe WhatsApp
 
-### 📱 Integrare WhatsApp
+### Integrare WhatsApp
 - Buton pe fiecare contact și medic → redirect direct la `wa.me/[număr]` cu mesaj pre-completat
 - Integrare în thread-urile de mesaje
 
-### 💬 Mesagerie
+### Mesagerie
 - Conversații separate cu medicul, familia, prietenii
 - Specialist are conversații cu pacienții și contactele personale
 - Buton "Vitale" direct din conversație cu pacientul (specialist)
 
-### 📁 Documente medicale
+### Documente medicale
 - Upload PDF/imagini din ambele conturi
 - Listă cu data, sursa și opțiune de ștergere
 
-### 🏥 Dashboard Specialist
+### Dashboard Specialist
 - Listă pacienți cu status în timp real (Alertă / Monitorizare / Normal)
 - Click pe pacient → panel detaliat cu:
   - Vitale live
@@ -77,14 +76,14 @@ Ideea centrală: **tu ești nodul central al unei rețele de sănătate**. Platf
 - Mesagerie directă cu pacienții
 - Propriul tab "Sănătatea mea" cu metrici și trusted persons proprii
 
-### 📱 UI Responsive
+### UI Responsive
 - **Desktop**: phone frame (393×852px) cu efect de telefon real pentru contul client
 - **Mobile**: full screen nativ
 - Specialist: layout full-width cu top navigation
 
 ---
 
-## 🗂️ Structura proiectului
+## Structura proiectului
 
 ```
 hackaton/
@@ -96,7 +95,7 @@ Proiectul este un **single-page app** pur HTML/CSS/JS — zero dependențe exter
 
 ---
 
-## 🚀 Cum rulezi
+## Cum rulezi
 
 ```bash
 # Clonează repo-ul
@@ -108,29 +107,3 @@ open index.html
 # sau
 npx serve .   # dacă vrei un local server
 ```
-
----
-
-## 🔮 Roadmap / Next Steps
-
-- [ ] Backend real cu Node.js / Supabase pentru autentificare și stocare date
-- [ ] Integrare API smartwatch (Apple HealthKit, Google Fit, Garmin Connect)
-- [ ] LLM real (Claude API / GPT-4) pentru Vita
-- [ ] Notificări push reale (Firebase Cloud Messaging)
-- [ ] Apeluri directe 112 cu date medicale transmise automat
-- [ ] Aplicație React Native pentru iOS/Android
-- [ ] Dashboard web pentru medici (Next.js)
-- [ ] Criptare end-to-end pentru datele medicale
-- [ ] Conformitate GDPR / HIPAA
-
----
-
-## 👥 Echipă
-
-Proiect realizat la Hackathon · Tema **"Be the Middlemen"**
-
----
-
-## 📄 Licență
-
-MIT
