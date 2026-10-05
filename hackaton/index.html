@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<title>VitalLink</title>
+<title>Safety Net</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
@@ -16,10 +16,11 @@
   --t1:#FFFFFF;--t2:rgba(255,255,255,.5);--t3:rgba(255,255,255,.25);
   --f:'Inter',system-ui,sans-serif;
   --rad:20px;
+  --nav-bg:rgba(14,16,24,.92);--nav-bg2:rgba(14,16,24,.95);--nav-bg3:rgba(14,16,24,.97);
 }
 html,body{width:100%;height:100%;background:var(--bg);font-family:var(--f);color:var(--t1);overflow:hidden;-webkit-font-smoothing:antialiased}
 
-/* ── UTILS ── */
+/* UTILS */
 .hidden{display:none!important}
 .flex{display:flex}.col{flex-direction:column}.center{align-items:center}.between{justify-content:space-between}.gap4{gap:4px}.gap8{gap:8px}.gap12{gap:12px}.gap16{gap:16px}
 .fw7{font-weight:700}.fw8{font-weight:800}.fw9{font-weight:900}
@@ -27,16 +28,27 @@ html,body{width:100%;height:100%;background:var(--bg);font-family:var(--f);color
 .mt4{margin-top:4px}.mt8{margin-top:8px}.mt12{margin-top:12px}.mt16{margin-top:16px}.mt20{margin-top:20px}
 .t1{color:var(--t1)}.t2{color:var(--t2)}.t3{color:var(--t3)}.cg{color:var(--g)}.cr{color:var(--r)}.cy{color:var(--y)}.cp{color:var(--p)}
 
-/* ── SCROLLBARS ── */
+/* SCROLLBARS */
 ::-webkit-scrollbar{width:3px;height:3px}
 ::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background:var(--b2);border-radius:2px}
 
-/* ════════════════ LOGIN ════════════════ */
+/* ANIMATIONS */
+@keyframes slideInRight{from{opacity:0;transform:translateX(18px)}to{opacity:1;transform:translateX(0)}}
+@keyframes slideInLeft{from{opacity:0;transform:translateX(-18px)}to{opacity:1;transform:translateX(0)}}
+@keyframes slideOutRight{from{opacity:1;transform:translateX(0)}to{opacity:0;transform:translateX(18px)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes sUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+@keyframes pdot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
+@keyframes tdot{0%,100%{transform:translateY(0);opacity:.4}50%{transform:translateY(-4px);opacity:1}}
+@keyframes sb{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+@keyframes sos-glow{0%,100%{box-shadow:0 0 0 0 rgba(255,77,109,.4)}50%{box-shadow:0 0 0 8px rgba(255,77,109,0)}}
+
+/* LOGIN */
 #login{position:fixed;inset:0;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;padding:24px;z-index:999;
   background-image:radial-gradient(ellipse at 30% 20%, rgba(79,142,247,.08) 0%, transparent 50%), radial-gradient(ellipse at 70% 80%, rgba(61,214,140,.06) 0%, transparent 50%)}
 .logo{display:flex;align-items:center;gap:10px;font-size:26px;font-weight:900;letter-spacing:-1px}
-.logo-icon{width:48px;height:48px;border-radius:14px;background:linear-gradient(135deg,var(--p),var(--pu));display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 8px 24px rgba(79,142,247,.35)}
+.logo-icon{width:48px;height:48px;border-radius:14px;background:linear-gradient(135deg,var(--p),var(--pu));display:flex;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(79,142,247,.35)}
 .login-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;width:100%;max-width:480px}
 .lcard{background:var(--s1);border:1px solid var(--b1);border-radius:24px;padding:24px 20px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:10px;transition:all .2s;position:relative;overflow:hidden}
 .lcard::before{content:'';position:absolute;inset:0;opacity:0;transition:opacity .2s}
@@ -46,13 +58,12 @@ html,body{width:100%;height:100%;background:var(--bg);font-family:var(--f);color
 .lcard:hover{border-color:var(--b2);transform:translateY(-2px)}
 .lcard-av{width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:800;position:relative}
 .lcard-av::after{content:'';position:absolute;inset:-3px;border-radius:50%;border:2px solid transparent;background:linear-gradient(135deg,var(--p),var(--pu)) border-box;-webkit-mask:linear-gradient(#fff 0 0) padding-box,linear-gradient(#fff 0 0);mask:linear-gradient(#fff 0 0) padding-box,linear-gradient(#fff 0 0);-webkit-mask-composite:destination-out;mask-composite:exclude}
-.new-badge{background:var(--g);color:#000;font-size:10px;font-weight:800;padding:2px 8px;border-radius:10px;letter-spacing:.04em}
 .lbtn{width:100%;padding:11px;border-radius:14px;border:none;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--f);transition:opacity .15s}
 .lbtn:hover{opacity:.9}
 .lbtn.client{background:linear-gradient(135deg,var(--p),var(--pu));color:#fff}
 .lbtn.spec{background:linear-gradient(135deg,var(--g),var(--p));color:#000}
 
-/* ════════════════ PHONE FRAME ════════════════ */
+/* PHONE FRAME */
 #client-app{position:fixed;inset:0;display:none;align-items:flex-start;justify-content:center;overflow-y:auto;padding:24px 0;
   background:radial-gradient(ellipse at 50% 0%, rgba(79,142,247,.1) 0%, var(--bg) 55%)}
 #client-app.show{display:flex}
@@ -60,30 +71,31 @@ html,body{width:100%;height:100%;background:var(--bg);font-family:var(--f);color
   border:1.5px solid rgba(255,255,255,.1);
   box-shadow:0 0 0 9px #0a0a0f,0 0 0 10px rgba(255,255,255,.03),0 40px 80px -10px rgba(0,0,0,.9),0 0 80px rgba(79,142,247,.08)}
 @media(max-width:430px){
-  #client-app{padding:0;align-items:stretch}
+  #client-app,#register-app{padding:0;align-items:stretch}
   .frame{width:100%;height:100dvh;border-radius:0;border:none;box-shadow:none}
 }
 .statusbar{height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;flex-shrink:0}
 .sb-time{font-size:15px;font-weight:700}
-.sb-icons{font-size:13px;display:flex;gap:5px}
+.sb-icons{font-size:12px;display:flex;gap:6px;align-items:center}
 .scroller{flex:1;overflow-y:auto;overflow-x:hidden;scroll-behavior:smooth}
 .scroller::-webkit-scrollbar{display:none}
 
-/* ════════════════ CLIENT BOTTOM NAV ════════════════ */
-.bnav{height:82px;background:rgba(14,16,24,.92);backdrop-filter:blur(24px) saturate(1.5);border-top:1px solid var(--b1);display:flex;align-items:flex-start;padding-top:10px;flex-shrink:0}
+/* CLIENT BOTTOM NAV */
+.bnav{height:82px;background:var(--nav-bg);backdrop-filter:blur(24px) saturate(1.5);border-top:1px solid var(--b1);display:flex;align-items:flex-start;padding-top:10px;flex-shrink:0}
 .btab{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;background:none;border:none;cursor:pointer;padding:4px 0}
-.btab-icon{font-size:24px;line-height:1;transition:transform .15s}
+.btab-icon{display:flex;align-items:center;justify-content:center;width:22px;height:22px;color:var(--t3);transition:transform .15s,color .15s}
 .btab-label{font-size:10px;font-weight:500;color:var(--t3);transition:color .15s}
 .btab.active .btab-label{color:var(--p2)}
-.btab.active .btab-icon{transform:scale(1.1)}
+.btab.active .btab-icon{color:var(--p2);transform:scale(1.1)}
 .btab-dot{width:4px;height:4px;background:var(--r);border-radius:50%;margin-top:1px;opacity:0}
 .btab.has-notif .btab-dot{opacity:1}
 
-/* ════════════════ CLIENT VIEWS ════════════════ */
+/* CLIENT VIEWS */
 .cv{display:none}
-.cv.show{display:block}
+.cv.show{display:block;animation:slideInRight .22s cubic-bezier(.25,.46,.45,.94) both}
+.cv.show.slide-left{animation:slideInLeft .22s cubic-bezier(.25,.46,.45,.94) both}
 
-/* ── HOME ── */
+/* HOME */
 .home-pad{padding:0 20px}
 
 /* data switcher */
@@ -103,14 +115,13 @@ html,body{width:100%;height:100%;background:var(--bg);font-family:var(--f);color
 .pulse-d{width:8px;height:8px;border-radius:50%;animation:pdot 1.2s ease-in-out infinite}
 .pulse-d.red{background:var(--r);box-shadow:0 0 8px var(--r)}
 .pulse-d.blue{background:var(--p);box-shadow:0 0 8px var(--p)}
-@keyframes pdot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
 .hero-num{font-size:56px;font-weight:900;letter-spacing:-3px;line-height:1;display:inline}
 .hero-unit{font-size:16px;font-weight:500;color:var(--t2);margin-left:3px}
 .hero-status{display:inline-block;padding:4px 10px;border-radius:12px;font-size:11px;font-weight:700;margin-top:8px}
 .hs-high{background:rgba(255,77,109,.2);color:var(--r);border:1px solid rgba(255,77,109,.3)}
 .hs-ok{background:rgba(61,214,140,.15);color:var(--g);border:1px solid rgba(61,214,140,.3)}
 .hs-warn{background:rgba(255,184,48,.15);color:var(--y);border:1px solid rgba(255,184,48,.3)}
-.hero-corner{position:absolute;right:16px;top:16px;font-size:40px;opacity:.15}
+.hero-corner{position:absolute;right:16px;top:16px;opacity:.15;display:flex;align-items:center;justify-content:center}
 
 /* metric grid */
 .mgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:10px 20px 0}
@@ -122,12 +133,12 @@ html,body{width:100%;height:100%;background:var(--bg);font-family:var(--f);color
 .mc-remove{position:absolute;top:8px;right:8px;width:22px;height:22px;background:rgba(255,77,109,.2);border-radius:50%;border:none;color:var(--r);cursor:pointer;font-size:12px;display:none;align-items:center;justify-content:center;font-weight:700}
 .edit-mode .mc-remove{display:flex}
 .edit-mode .mc{border-color:rgba(255,255,255,.12)}
-.edit-mode .mc::before{content:'☰';position:absolute;bottom:8px;right:8px;font-size:12px;color:var(--t3)}
+.edit-mode .mc::before{content:'⠿';position:absolute;bottom:8px;right:8px;font-size:12px;color:var(--t3)}
 
 /* add metric btn */
 .add-metric-btn{margin:10px 20px;background:var(--s2);border:1px dashed var(--b2);border-radius:16px;padding:14px;width:calc(100% - 40px);color:var(--t2);font-size:13px;font-weight:600;cursor:pointer;display:none;align-items:center;justify-content:center;gap:8px;font-family:var(--f)}
 .edit-mode .add-metric-btn{display:flex}
-.edit-btn{position:absolute;top:16px;right:20px;background:var(--s2);border:1px solid var(--b1);border-radius:12px;padding:6px 12px;font-size:12px;font-weight:600;color:var(--t2);cursor:pointer;display:flex;align-items:center;gap:5px;font-family:var(--f);transition:all .15s;z-index:5}
+.edit-btn{background:var(--s2);border:1px solid var(--b1);border-radius:12px;padding:6px 12px;font-size:12px;font-weight:600;color:var(--t2);cursor:pointer;display:flex;align-items:center;gap:5px;font-family:var(--f);transition:all .15s}
 .edit-btn.active{background:var(--p);color:#fff;border-color:transparent;box-shadow:0 4px 12px rgba(79,142,247,.35)}
 
 /* section inside home */
@@ -136,16 +147,16 @@ html,body{width:100%;height:100%;background:var(--bg);font-family:var(--f);color
 
 /* alert bar */
 .alert-bar{background:linear-gradient(135deg,rgba(255,77,109,.12),rgba(255,77,109,.05));border:1px solid rgba(255,77,109,.25);border-radius:18px;padding:14px 16px;display:flex;align-items:center;gap:12px;margin:12px 20px 0}
-.alert-bar-icon{font-size:22px}
+.alert-bar-icon{display:flex;align-items:center;color:var(--r)}
 .alert-bar-body{flex:1}
 .alert-bar-title{font-size:13px;font-weight:700;color:var(--r)}
 .alert-bar-sub{font-size:11px;color:var(--t2);margin-top:2px}
 .alert-btn{background:var(--r);color:#fff;border:none;border-radius:12px;padding:8px 14px;font-size:12px;font-weight:700;cursor:pointer;font-family:var(--f)}
 
-/* ── AI CHAT ── */
+/* AI CHAT */
 .chat-wrap{display:flex;flex-direction:column;height:100%}
 .chat-head{padding:14px 20px 12px;border-bottom:1px solid var(--b1);display:flex;align-items:center;gap:12px;flex-shrink:0}
-.ai-av{width:38px;height:38px;background:linear-gradient(135deg,var(--p),var(--pu));border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px}
+.ai-av{width:38px;height:38px;background:linear-gradient(135deg,var(--p),var(--pu));border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;letter-spacing:-.5px}
 .chat-msgs{flex:1;overflow-y:auto;padding:16px 20px;display:flex;flex-direction:column;gap:10px}
 .chat-msgs::-webkit-scrollbar{display:none}
 .mw{display:flex;flex-direction:column}
@@ -166,18 +177,17 @@ html,body{width:100%;height:100%;background:var(--bg);font-family:var(--f);color
 .typing-b{display:flex;align-items:center;gap:4px;padding:11px 14px;background:var(--s2);border:1px solid var(--b1);border-radius:18px;border-bottom-left-radius:5px;width:fit-content}
 .td{width:5px;height:5px;background:var(--t2);border-radius:50%;animation:tdot .8s infinite}
 .td:nth-child(2){animation-delay:.15s}.td:nth-child(3){animation-delay:.3s}
-@keyframes tdot{0%,100%{transform:translateY(0);opacity:.4}50%{transform:translateY(-4px);opacity:1}}
 .chat-in-wrap{padding:10px 16px 4px;border-top:1px solid var(--b1);display:flex;gap:8px;align-items:flex-end;flex-shrink:0;background:var(--bg)}
 .chat-ta{flex:1;background:var(--s2);border:1px solid var(--b1);border-radius:20px;padding:11px 16px;color:var(--t1);font-size:14px;resize:none;max-height:90px;font-family:var(--f);outline:none;line-height:1.4}
 .chat-ta:focus{border-color:rgba(79,142,247,.5)}
 .chat-ta::placeholder{color:var(--t3)}
-.send{width:40px;height:40px;border-radius:50%;background:var(--p);border:none;color:#fff;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 4px 12px rgba(79,142,247,.35)}
+.send{width:40px;height:40px;border-radius:50%;background:var(--p);border:none;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 4px 12px rgba(79,142,247,.35)}
 
-/* ── TRUSTED TAB ── */
+/* TRUSTED TAB */
 .tp-view{padding:20px}
 .tp-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
 .tp-empty{background:var(--s1);border:1px solid var(--b1);border-radius:24px;padding:32px 24px;text-align:center;margin-top:8px}
-.tp-empty-icon{font-size:52px;margin-bottom:12px}
+.tp-empty-icon{display:flex;justify-content:center;margin-bottom:12px;color:var(--t2)}
 .tp-empty-title{font-size:18px;font-weight:800;margin-bottom:6px}
 .tp-empty-sub{font-size:13px;color:var(--t2);line-height:1.5;margin-bottom:20px}
 .tp-setup-btn{background:linear-gradient(135deg,var(--p),var(--pu));color:#fff;border:none;border-radius:16px;padding:14px 24px;font-size:15px;font-weight:700;cursor:pointer;font-family:var(--f);width:100%;box-shadow:0 8px 24px rgba(79,142,247,.3)}
@@ -195,7 +205,7 @@ html,body{width:100%;height:100%;background:var(--bg);font-family:var(--f);color
 .ta-btn.green{background:var(--g);color:#000;border-color:transparent}
 .ta-btn.wa{background:linear-gradient(135deg,#25D366,#128C7E);color:#fff;border-color:transparent}
 
-/* ── MESSAGES ── */
+/* MESSAGES */
 .thread-item{display:flex;align-items:center;gap:12px;padding:14px 20px;border-bottom:1px solid var(--b1);cursor:pointer;transition:background .12s}
 .thread-item:hover{background:var(--s1)}
 .th-av{width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;flex-shrink:0;position:relative}
@@ -204,36 +214,37 @@ html,body{width:100%;height:100%;background:var(--bg);font-family:var(--f);color
 .th-prev{font-size:12px;color:var(--t2);margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:200px}
 .th-time{font-size:11px;color:var(--t3);margin-left:auto;flex-shrink:0}
 
-/* thread overlay */
-.tov{position:absolute;inset:0;background:var(--bg);z-index:100;display:none;flex-direction:column}
-.tov.show{display:flex}
+/* thread overlay - FIXED positioning */
+.tov{position:fixed;inset:0;background:var(--bg);z-index:100;display:none;flex-direction:column}
+.tov.show{display:flex;animation:slideInRight .22s cubic-bezier(.25,.46,.45,.94) both}
 .tov-head{padding:12px 16px;border-bottom:1px solid var(--b1);display:flex;align-items:center;gap:10px;flex-shrink:0}
-.back-btn{background:none;border:none;color:var(--p);font-size:20px;cursor:pointer;padding:0 6px 0 0;line-height:1}
+.back-btn{background:none;border:none;color:var(--p);cursor:pointer;padding:0 6px 0 0;display:flex;align-items:center;line-height:1}
 .tov-msgs{flex:1;overflow-y:auto;padding:14px 20px;display:flex;flex-direction:column;gap:10px}
 .tov-msgs::-webkit-scrollbar{display:none}
 .tov-actions{display:flex;gap:8px;padding:8px 16px;flex-shrink:0}
 .call-wa{flex:1;padding:10px;border-radius:14px;border:none;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--f);display:flex;align-items:center;justify-content:center;gap:6px}
 .call-wa.wa{background:linear-gradient(135deg,#25D366,#128C7E);color:#fff}
 .call-wa.msg{background:var(--p);color:#fff}
+.tov-input-wrap{flex-shrink:0;position:sticky;bottom:0;padding:10px 16px;padding-bottom:calc(10px + env(safe-area-inset-bottom));border-top:1px solid var(--b1);display:flex;gap:8px;align-items:flex-end;background:var(--bg)}
 
-/* ── FILES ── */
+/* FILES */
 .fview{padding:20px}
 .upload-z{background:var(--s1);border:2px dashed var(--b1);border-radius:20px;padding:30px 20px;text-align:center;cursor:pointer;transition:all .2s;margin-bottom:16px}
 .upload-z:hover{border-color:rgba(79,142,247,.4);background:rgba(79,142,247,.04)}
 .fitem{background:var(--s1);border:1px solid var(--b1);border-radius:16px;padding:14px;display:flex;align-items:center;gap:12px;margin-bottom:8px}
-.f-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
-.f-pdf{background:rgba(255,77,109,.12)}
-.f-img{background:rgba(79,142,247,.12)}
+.f-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.f-pdf{background:rgba(255,77,109,.12);color:var(--r)}
+.f-img{background:rgba(79,142,247,.12);color:var(--p)}
 .f-name{font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:180px}
 .f-meta{font-size:11px;color:var(--t2);margin-top:2px}
 .f-del{margin-left:auto;width:30px;height:30px;border-radius:50%;background:transparent;border:none;color:var(--t3);cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center}
 .f-del:hover{background:rgba(255,77,109,.12);color:var(--r)}
 input[type=file]{display:none}
 
-/* ════════════════ SPECIALIST APP ════════════════ */
+/* SPECIALIST APP */
 #spec-app{position:fixed;inset:0;display:none;flex-direction:column;background:var(--bg)}
 #spec-app.show{display:flex}
-.spec-top{height:54px;background:rgba(14,16,24,.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--b1);display:flex;align-items:center;padding:0 20px;gap:16px;flex-shrink:0}
+.spec-top{height:54px;background:var(--nav-bg2);backdrop-filter:blur(20px);border-bottom:1px solid var(--b1);display:flex;align-items:center;padding:0 20px;gap:16px;flex-shrink:0}
 .spec-logo{font-size:17px;font-weight:900;letter-spacing:-.5px;display:flex;align-items:center;gap:8px;flex-shrink:0}
 .spec-logo-dot{width:7px;height:7px;background:var(--g);border-radius:50%;box-shadow:0 0 8px var(--g)}
 .spec-tabs{display:flex;gap:3px;overflow-x:auto;-ms-overflow-style:none;scrollbar-width:none}
@@ -243,7 +254,8 @@ input[type=file]{display:none}
 .spec-av{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--g),var(--p));display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;cursor:pointer;margin-left:auto;flex-shrink:0}
 .spec-body{flex:1;overflow:hidden;display:flex;position:relative}
 .sv{display:none;flex:1;overflow-y:auto;padding:20px 24px}
-.sv.show{display:block}
+.sv.show{display:block;animation:fadeIn .2s ease both}
+
 .spec-title{font-size:22px;font-weight:900;letter-spacing:-.5px;margin-bottom:4px}
 .spec-sub{font-size:13px;color:var(--t2);margin-bottom:20px}
 
@@ -266,7 +278,7 @@ input[type=file]{display:none}
 
 /* patient detail panel */
 .pd-panel{position:absolute;inset:0;background:var(--bg);z-index:200;display:none;flex-direction:column;overflow-y:auto}
-.pd-panel.show{display:flex}
+.pd-panel.show{display:flex;animation:slideInRight .22s cubic-bezier(.25,.46,.45,.94) both}
 .pd-top{padding:18px 20px;border-bottom:1px solid var(--b1);display:flex;align-items:center;gap:14px;position:sticky;top:0;background:var(--bg);z-index:5;flex-shrink:0}
 .pd-content{padding:20px;display:flex;flex-direction:column;gap:14px}
 .ai-box{background:linear-gradient(135deg,rgba(79,142,247,.1),rgba(158,119,255,.05));border:1px solid rgba(79,142,247,.2);border-radius:18px;padding:16px}
@@ -275,15 +287,14 @@ input[type=file]{display:none}
 .info-row{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid var(--b1);font-size:13px}
 .info-row:last-child{border-bottom:none}
 
-/* spec messages - overlay */
-.spec-thread{position:absolute;inset:0;background:var(--bg);z-index:300;display:none;flex-direction:column}
-.spec-thread.show{display:flex}
+/* spec messages overlay - FIXED */
+.spec-thread{position:fixed;inset:0;background:var(--bg);z-index:300;display:none;flex-direction:column}
+.spec-thread.show{display:flex;animation:slideInRight .22s cubic-bezier(.25,.46,.45,.94) both}
 
-/* ════════════════ MODALS ════════════════ */
+/* MODALS */
 .modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.75);backdrop-filter:blur(12px);z-index:600;display:none;align-items:flex-end;justify-content:center}
 .modal-bg.show{display:flex}
 .msheet{background:var(--s1);border-radius:28px 28px 0 0;width:100%;max-width:500px;max-height:88vh;overflow-y:auto;padding-bottom:32px;animation:sUp .3s ease}
-@keyframes sUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
 .m-handle{width:36px;height:4px;background:var(--b2);border-radius:2px;margin:12px auto 18px}
 .m-title{font-size:18px;font-weight:800;padding:0 22px;margin-bottom:18px}
 .m-body{padding:0 22px}
@@ -307,7 +318,7 @@ input[type=file]{display:none}
 .mpgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:0 22px}
 .mpc{background:var(--s2);border:1px solid var(--b1);border-radius:16px;padding:14px;cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:10px}
 .mpc.sel{background:rgba(79,142,247,.12);border-color:rgba(79,142,247,.3)}
-.mpc-icon{font-size:22px}
+.mpc-icon{display:flex;align-items:center;color:var(--t2)}
 .mpc-name{font-size:13px;font-weight:600}
 .mpc-cur{font-size:11px;color:var(--t2)}
 .mpc-check{margin-left:auto;width:20px;height:20px;border-radius:50%;border:2px solid var(--b2);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:10px}
@@ -317,8 +328,7 @@ input[type=file]{display:none}
 .sos-modal{position:fixed;inset:0;background:rgba(0,0,0,.9);backdrop-filter:blur(20px);z-index:800;display:none;align-items:center;justify-content:center;padding:24px}
 .sos-modal.show{display:flex}
 .sos-sheet{background:var(--s1);border-radius:28px;padding:28px 22px;width:100%;max-width:340px;text-align:center;border:1px solid rgba(255,77,109,.25)}
-.sos-icon{font-size:60px;animation:sb 1.2s ease-in-out infinite;margin-bottom:14px}
-@keyframes sb{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+.sos-icon{display:flex;justify-content:center;animation:sb 1.2s ease-in-out infinite;margin-bottom:14px;color:var(--r)}
 .sos-info{background:var(--s2);border-radius:14px;padding:12px;font-size:12px;color:var(--t2);text-align:left;line-height:1.8;margin:14px 0}
 .sos-btns{display:flex;flex-direction:column;gap:8px}
 .sb-btn{padding:14px;border-radius:16px;border:none;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--f);width:100%}
@@ -326,20 +336,60 @@ input[type=file]{display:none}
 .sb-green{background:linear-gradient(135deg,#25D366,#128C7E);color:#fff}
 .sb-ghost{background:var(--s2);color:var(--t1);border:1px solid var(--b1)}
 .sos-pill-btn{background:var(--r);color:#fff;border:none;border-radius:20px;padding:8px 16px;font-size:12px;font-weight:700;cursor:pointer;font-family:var(--f);display:flex;align-items:center;gap:6px;animation:sos-glow 2s infinite;box-shadow:0 0 0 0 rgba(255,77,109,.5)}
-@keyframes sos-glow{0%,100%{box-shadow:0 0 0 0 rgba(255,77,109,.4)}50%{box-shadow:0 0 0 8px rgba(255,77,109,0)}}
 
 /* add new indicator */
 .new-indicator{background:var(--g);color:#000;font-size:9px;font-weight:900;padding:2px 6px;border-radius:8px;margin-left:6px;text-transform:uppercase}
 
 /* NOTIFICATION */
 .notif-dot{position:absolute;width:8px;height:8px;background:var(--r);border-radius:50%;top:-2px;right:-2px;border:2px solid var(--bg)}
+
+/* add btn circle */
+.add-circle-btn{width:36px;height:36px;border-radius:50%;background:var(--p);border:none;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center}
+
+/* PAT GRID */
+.pat-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.pat-gc{background:var(--s1);border:1px solid var(--b1);border-radius:20px;padding:14px;cursor:pointer;transition:all .15s;overflow:hidden}
+.pat-gc:hover{border-color:var(--b2);transform:translateY(-1px);box-shadow:0 4px 16px rgba(0,0,0,.2)}
+.pat-gc.alert{border-color:rgba(255,77,109,.3);background:linear-gradient(145deg,rgba(255,77,109,.07),var(--s1))}
+.pat-gc.monitor{border-color:rgba(255,184,48,.3);background:linear-gradient(145deg,rgba(255,184,48,.06),var(--s1))}
+
+/* SPEC MODE BAR */
+.spec-mode-bar{height:62px;background:var(--nav-bg3);backdrop-filter:blur(20px);border-top:1px solid var(--b1);display:flex;flex-shrink:0}
+.smode{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;border:none;background:transparent;color:var(--t3);cursor:pointer;font-family:var(--f);font-size:11px;font-weight:500;transition:color .15s;padding-top:4px}
+.smode.active{color:var(--p)}
+.smode-icon{width:22px;height:22px;display:flex;align-items:center;justify-content:center}
+.smode.active .smode-icon svg{stroke:var(--p)}
+
+/* KW chip */
+.kw-chip{display:inline-flex;align-items:center;gap:5px;padding:5px 12px;border-radius:20px;font-size:12px;font-weight:600;background:rgba(79,142,247,.12);color:var(--p2);border:1px solid rgba(79,142,247,.25)}
+
+/* BIG SOS BUTTON */
+.sos-main-btn{width:100%;padding:16px 20px;background:linear-gradient(135deg,#FF4D6D,#c8163a);color:#fff;border:none;border-radius:20px;font-size:17px;font-weight:900;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;letter-spacing:.06em;animation:sos-glow 2s infinite;box-shadow:0 8px 28px rgba(255,77,109,.5);font-family:var(--f);transition:transform .1s}
+.sos-main-btn:active{transform:scale(.97)}
+
+/* NO DEVICE */
+.no-device-box{background:var(--s1);border:1px solid var(--b1);border-radius:24px;padding:36px 24px;text-align:center;margin:16px 20px 0}
+.connect-btn{background:linear-gradient(135deg,var(--p),var(--pu));color:#fff;border:none;border-radius:16px;padding:14px 28px;font-size:15px;font-weight:700;cursor:pointer;font-family:var(--f);display:inline-flex;align-items:center;gap:8px;margin-top:16px;box-shadow:0 6px 20px rgba(79,142,247,.35)}
+
+/* LIGHT MODE */
+body.light{
+  --bg:#F0F2F8;--s1:#FFFFFF;--s2:#E6E9F4;--s3:#D8DCF0;
+  --b1:rgba(0,0,0,.09);--b2:rgba(0,0,0,.15);
+  --t1:#0F1020;--t2:rgba(15,16,32,.55);--t3:rgba(15,16,32,.28);
+  --nav-bg:rgba(240,242,248,.95);--nav-bg2:rgba(255,255,255,.97);--nav-bg3:rgba(240,242,248,.98);
+}
+body.light #client-app{background:radial-gradient(ellipse at 50% 0%, rgba(79,142,247,.08) 0%, var(--bg) 55%)}
+body.light .frame{border-color:rgba(0,0,0,.1);box-shadow:0 0 0 9px #d8dce8,0 40px 80px -10px rgba(0,0,0,.25)}
 </style>
 </head>
-<body>
+<body class="light">
 
-<!-- ════════════════ LOGIN ════════════════ -->
+<!-- LOGIN -->
 <div id="login">
-  <div class="logo"><div class="logo-icon">💙</div>VitalLink</div>
+  <div class="logo">
+    <img src="insigna site.jpeg" style="width:52px;height:52px;border-radius:14px;object-fit:cover;object-position:50% 20%;background:#fff">
+    Safety Net
+  </div>
   <div style="text-align:center">
     <div style="font-size:14px;color:var(--t2);line-height:1.6;max-width:300px">Platformă medicală inteligentă.<br>Alege tipul de cont demo:</div>
   </div>
@@ -348,76 +398,207 @@ input[type=file]{display:none}
       <div class="lcard-av" style="background:linear-gradient(135deg,#FF4D6D22,#FF4D6D44)">AM</div>
       <div style="font-size:15px;font-weight:800">Andrei M.</div>
       <div style="font-size:12px;color:var(--t2)">Client · 28 ani</div>
-      <span class="new-badge">NOU</span>
       <div style="font-size:11px;color:var(--t3);text-align:center;line-height:1.5">Cont client + trusted<br>person network</div>
-      <button class="lbtn client">Intră ca Client →</button>
+
+      <button class="lbtn client">Intră în cont</button>
     </div>
     <div class="lcard spec" onclick="loginAs('spec')">
       <div class="lcard-av" style="background:linear-gradient(135deg,#3DD68C22,#4F8EF744)">AI</div>
-      <div style="font-size:15px;font-weight:800">Dr. Ionescu</div>
+      <div style="display:flex;align-items:center;gap:6px;justify-content:center">
+        <div style="font-size:15px;font-weight:800">Dr. Ionescu</div>
+        <span style="background:var(--g);color:#000;font-size:9px;font-weight:900;padding:2px 7px;border-radius:8px;text-transform:uppercase;letter-spacing:.05em">Doctor</span>
+      </div>
       <div style="font-size:12px;color:var(--t2)">Specialist · Cardiologie</div>
-      <span class="new-badge" style="background:var(--p)">NOU</span>
       <div style="font-size:11px;color:var(--t3);text-align:center;line-height:1.5">Panou medic + trusted<br>person propriu</div>
-      <button class="lbtn spec">Intră ca Specialist →</button>
+      <button class="lbtn spec">Intră în cont</button>
     </div>
+  </div>
+  <button onclick="openNewAccountModal()" style="background:transparent;border:1px solid var(--b2);border-radius:16px;padding:10px 22px;color:var(--t2);font-size:13px;font-weight:600;cursor:pointer;font-family:var(--f);display:flex;align-items:center;gap:7px;transition:all .2s" onmouseover="this.style.borderColor='var(--p)';this.style.color='var(--p2)'" onmouseout="this.style.borderColor='var(--b2)';this.style.color='var(--t2)'">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+    Creează cont nou
+  </button>
+</div>
+
+<!-- REGISTER APP (phone frame) -->
+<div id="register-app" style="position:fixed;inset:0;display:none;align-items:flex-start;justify-content:center;overflow-y:auto;padding:24px 0;background:radial-gradient(ellipse at 50% 0%,rgba(158,119,255,.1) 0%,var(--bg) 55%)">
+  <div class="frame" style="height:auto;min-height:852px">
+    <div class="statusbar">
+      <span class="sb-time" id="reg-clock">14:33</span>
+      <span class="sb-icons"><span style="font-size:12px;font-weight:600">4G</span><span style="font-size:12px;font-weight:600">100%</span></span>
+    </div>
+    <div style="padding:8px 20px 0;display:flex;align-items:center;gap:10px">
+      <button onclick="closeRegister()" style="background:var(--s2);border:1px solid var(--b1);border-radius:12px;padding:7px 14px;color:var(--p2);font-size:13px;font-weight:700;cursor:pointer;font-family:var(--f);display:flex;align-items:center;gap:5px">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
+        Înapoi
+      </button>
+      <div style="font-size:18px;font-weight:900;letter-spacing:-.5px">Cont nou</div>
+    </div>
+    <div style="padding:20px 20px 0">
+      <div style="font-size:13px;color:var(--t2);line-height:1.6;margin-bottom:20px">Completează datele tale pentru a crea un cont Safety Net.</div>
+
+      <!-- Step indicator -->
+      <div style="display:flex;gap:6px;margin-bottom:24px">
+        <div style="flex:1;height:3px;border-radius:2px;background:var(--p)"></div>
+        <div style="flex:1;height:3px;border-radius:2px;background:var(--b2)" id="reg-step2-bar"></div>
+      </div>
+
+      <div class="fl">
+        <div class="fl-label">Prenume *</div>
+        <input class="finput" id="reg-firstname" placeholder="ex: Maria" type="text" oninput="regStep2Check()">
+      </div>
+      <div class="fl">
+        <div class="fl-label">Nume *</div>
+        <input class="finput" id="reg-lastname" placeholder="ex: Popescu" type="text" oninput="regStep2Check()">
+      </div>
+      <div class="fl">
+        <div class="fl-label">Data nașterii *</div>
+        <input class="finput" id="reg-dob" type="date" style="color:var(--t1)" oninput="regStep2Check()">
+      </div>
+      <div class="fl">
+        <div class="fl-label">Grup sanguin</div>
+        <select class="finput" id="reg-blood" style="color:var(--t1)">
+          <option value="">Necunoscut</option>
+          <option>O+</option><option>O-</option>
+          <option>A+</option><option>A-</option>
+          <option>B+</option><option>B-</option>
+          <option>AB+</option><option>AB-</option>
+        </select>
+      </div>
+      <div class="fl">
+        <div class="fl-label">Afecțiuni medicale <span style="color:var(--t3);font-weight:400;text-transform:none">(opțional)</span></div>
+        <input class="finput" id="reg-conditions" placeholder="ex: Hipertensiune, Diabet" type="text">
+      </div>
+      <div class="fl">
+        <div class="fl-label">Alergii <span style="color:var(--t3);font-weight:400;text-transform:none">(opțional)</span></div>
+        <input class="finput" id="reg-allergies" placeholder="ex: Penicilină, Polen" type="text">
+      </div>
+      <div class="fl">
+        <div class="fl-label">Număr telefon</div>
+        <input class="finput" id="reg-phone" placeholder="ex: 0740 123 456" type="tel">
+      </div>
+    </div>
+    <div style="padding:20px">
+      <button id="reg-submit-btn" onclick="submitRegister()" style="width:100%;padding:15px;background:linear-gradient(135deg,var(--pu),var(--p));border:none;border-radius:16px;color:#fff;font-size:15px;font-weight:700;cursor:pointer;font-family:var(--f);box-shadow:0 8px 24px rgba(158,119,255,.3);opacity:.5;pointer-events:none;transition:opacity .2s">
+        Creează cont
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" style="vertical-align:middle;margin-left:4px"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </button>
+      <div style="font-size:11px;color:var(--t3);text-align:center;margin-top:12px;line-height:1.6">
+        Datele tale sunt stocate local și criptate.<br>Poți adăuga trusted persons după înregistrare.
+      </div>
+    </div>
+    <div style="height:32px"></div>
   </div>
 </div>
 
-<!-- ════════════════ CLIENT APP ════════════════ -->
+<!-- CLIENT APP -->
 <div id="client-app">
   <div class="frame">
     <div class="statusbar">
       <span class="sb-time" id="cl-clock">14:33</span>
-      <span class="sb-icons">📶 🔋</span>
+      <span class="sb-icons">
+        <span style="font-size:12px;font-weight:600">4G</span>
+        <span style="font-size:12px;font-weight:600">97%</span>
+      </span>
     </div>
 
     <div class="scroller" id="cl-scroller">
 
       <!-- HOME VIEW -->
       <div class="cv show" id="cv-home" style="position:relative;padding-bottom:8px">
-        <div style="padding:14px 20px 0;display:flex;align-items:center;justify-content:space-between;position:relative">
-          <div>
-            <div style="font-size:22px;font-weight:900;letter-spacing:-.5px">Bună, <span style="color:var(--p2)">Andrei</span> 👋</div>
-            <div style="font-size:12px;color:var(--t2);margin-top:1px">Duminică · 4 Oct 2026</div>
-          </div>
-          <button class="sos-pill-btn" onclick="showSOS()">🆘 SOS</button>
+        <div style="padding:14px 20px 0">
+          <div style="font-size:22px;font-weight:900;letter-spacing:-.5px">Bună, <span id="cl-greeting-name" style="color:var(--p2)">Andrei</span></div>
+          <div style="font-size:12px;color:var(--t2);margin-top:1px">Duminică · 4 Oct 2026</div>
         </div>
 
         <!-- DATA SWITCHER -->
         <div class="ds-wrap">
           <div class="ds-strip" id="ds-strip">
-            <button class="ds-pill active" id="ds-me" onclick="switchData('me')">❤️ Eu</button>
-            <!-- trusted pills added dynamically -->
+            <button class="ds-pill active" id="ds-me" data-ds="me" onclick="switchData('me')">Eu</button>
           </div>
         </div>
 
-        <!-- ALERT BAR -->
-        <div class="alert-bar">
-          <div class="alert-bar-icon">⚠️</div>
-          <div class="alert-bar-body">
-            <div class="alert-bar-title">BPM ridicat detectat</div>
-            <div class="alert-bar-sub" id="alert-sub">142 bpm · 8 min · Contacte notificate</div>
+        <!-- NO DEVICE STATE -->
+        <div id="no-device-overlay" style="display:none">
+          <div class="no-device-box">
+            <div style="font-size:40px;margin-bottom:12px">⌚</div>
+            <div style="font-size:18px;font-weight:800;margin-bottom:6px">Niciun dispozitiv conectat</div>
+            <div style="font-size:13px;color:var(--t2);line-height:1.6;margin-bottom:4px">Conectează un smartwatch sau wearable<br>pentru a vedea datele tale de sănătate.</div>
+            <button class="connect-btn" id="connect-device-btn" onclick="connectDevice()">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/><path d="M8 12h8M12 8v8"/></svg>
+              Conectează dispozitiv
+            </button>
           </div>
-          <button class="alert-btn" onclick="showSOS()">Acțiune</button>
+        </div>
+
+        <!-- DATA SECTIONS (hidden when no device) -->
+        <div id="home-data-sections">
+
+        <!-- ALERTS CONTAINER -->
+        <div id="home-alerts">
+          <div class="alert-bar">
+            <div class="alert-bar-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            </div>
+            <div class="alert-bar-body">
+              <div class="alert-bar-title">BPM ridicat detectat</div>
+              <div class="alert-bar-sub">142 bpm · 8 min · Contacte notificate</div>
+            </div>
+            <button class="alert-btn" onclick="showSOS()">Acțiune</button>
+          </div>
+          <div class="alert-bar" style="background:linear-gradient(135deg,rgba(255,184,48,.12),rgba(255,184,48,.05));border-color:rgba(255,184,48,.25);margin-top:8px">
+            <div class="alert-bar-icon" style="color:var(--y)">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v6M12 16v6M4.93 4.93l4.24 4.24M14.83 14.83l4.24 4.24M2 12h6M16 12h6M4.93 19.07l4.24-4.24M14.83 9.17l4.24-4.24"/></svg>
+            </div>
+            <div class="alert-bar-body">
+              <div class="alert-bar-title" style="color:var(--y)">Posibilă cădere detectată</div>
+              <div class="alert-bar-sub">Giroscopul a sesizat o mișcare bruscă · Ești bine?</div>
+            </div>
+            <button class="alert-btn" style="background:var(--y);color:#000" onclick="dismissFallAlert(this)">Sunt bine</button>
+          </div>
+          <div class="alert-bar" style="background:linear-gradient(135deg,rgba(158,119,255,.12),rgba(158,119,255,.05));border-color:rgba(158,119,255,.25);margin-top:8px">
+            <div class="alert-bar-icon" style="color:var(--pu)">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 22a10 10 0 100-20 10 10 0 000 20z"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+            </div>
+            <div class="alert-bar-body">
+              <div class="alert-bar-title" style="color:var(--pu)">SpO₂ la limita inferioară</div>
+              <div class="alert-bar-sub">94% · Sub normal · Monitorizare activă</div>
+            </div>
+            <button class="alert-btn" style="background:var(--pu)" onclick="this.closest('.alert-bar').style.display='none'">OK</button>
+          </div>
         </div>
 
         <!-- HERO METRIC -->
         <div class="hero-card mine" id="hero-card">
           <div class="hero-card-label"><div class="pulse-d red"></div>Frecvență cardiacă</div>
           <div><span class="hero-num" id="hero-bpm">142</span><span class="hero-unit">bpm</span></div>
-          <div class="hero-status hs-high" id="hero-status">↑ Ridicat · baseline ~72</div>
-          <div class="hero-corner" id="hero-icon">❤️</div>
+          <div class="hero-status hs-high" id="hero-status">Ridicat · baseline ~72</div>
+          <div class="hero-corner" id="hero-icon">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor" style="color:var(--r)"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+          </div>
+        </div>
+
+        <!-- BIG SOS BUTTON -->
+        <div style="padding:12px 20px 0">
+          <button class="sos-main-btn" onclick="showSOS()">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            SOS · Urgență
+          </button>
         </div>
 
         <!-- METRIC GRID with EDIT -->
         <div style="position:relative;padding-top:4px" id="mgrid-container">
           <div style="padding:12px 20px 0;display:flex;align-items:center;justify-content:space-between">
             <div style="font-size:12px;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.1em">Măsurători</div>
-            <button class="edit-btn" id="edit-dash-btn" onclick="toggleEditMode()">✏️ Editează</button>
+            <button class="edit-btn" id="edit-dash-btn" onclick="toggleEditMode()">Editează</button>
           </div>
           <div class="mgrid" id="mgrid"></div>
-          <button class="add-metric-btn" id="add-metric-btn" onclick="openMetricPicker()">+ Adaugă măsurătoare</button>
+          <button class="add-metric-btn" id="add-metric-btn" onclick="openMetricPicker()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Adaugă măsurătoare
+          </button>
         </div>
+
+        </div><!-- /home-data-sections -->
 
         <!-- DOCTOR QUICK ACTION -->
         <div class="home-section">
@@ -428,7 +609,7 @@ input[type=file]{display:none}
               <div style="font-size:14px;font-weight:700">Dr. Alexandru Ionescu</div>
               <div style="font-size:11px;color:var(--t2)">Cardiologie · CMI Ionescu</div>
             </div>
-            <button onclick="openWA('40722100200','Dr. Ionescu')" style="background:linear-gradient(135deg,#25D366,#128C7E);color:#fff;border:none;border-radius:12px;padding:9px 14px;font-size:12px;font-weight:700;cursor:pointer;font-family:var(--f)">📱 WA</button>
+            <button onclick="openWA('40725377568','Dr. Ionescu')" style="background:linear-gradient(135deg,#25D366,#128C7E);color:#fff;border:none;border-radius:12px;padding:9px 14px;font-size:12px;font-weight:700;cursor:pointer;font-family:var(--f)">WhatsApp</button>
           </div>
         </div>
         <div style="height:20px"></div>
@@ -437,7 +618,7 @@ input[type=file]{display:none}
       <!-- AI VIEW -->
       <div class="cv" id="cv-ai" style="display:none;flex-direction:column;height:calc(852px - 44px - 82px)">
         <div class="chat-head">
-          <div class="ai-av">🤖</div>
+          <div class="ai-av">AI</div>
           <div>
             <div style="font-size:15px;font-weight:700">Vita · AI Health</div>
             <div style="font-size:11px;color:var(--g);display:flex;align-items:center;gap:4px"><div class="pulse-d blue" style="width:6px;height:6px"></div>Live · vitals conectate</div>
@@ -448,7 +629,9 @@ input[type=file]{display:none}
         <div class="chat-in-wrap">
           <textarea class="chat-ta" id="cl-input" rows="1" placeholder="Spune-i lui Vita cum te simți..."
             onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();clSend()}"></textarea>
-          <button class="send" onclick="clSend()">➤</button>
+          <button class="send" onclick="clSend()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M2 21l21-9L2 3v7l15 2-15 2v7z"/></svg>
+          </button>
         </div>
       </div>
 
@@ -460,108 +643,190 @@ input[type=file]{display:none}
               <div style="font-size:20px;font-weight:900;letter-spacing:-.5px">Trusted Network</div>
               <div style="font-size:13px;color:var(--t2);margin-top:2px">Rețeaua ta de persoane de încredere</div>
             </div>
-            <button style="width:36px;height:36px;border-radius:50%;background:var(--p);border:none;color:#fff;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center" onclick="openAddTP('client')">+</button>
+            <button class="add-circle-btn" onclick="openAddTP('client')">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            </button>
           </div>
-          <!-- "Sunt trusted person pentru" section -->
-          <div style="background:rgba(79,142,247,.07);border:1px solid rgba(79,142,247,.15);border-radius:18px;padding:14px;margin-bottom:16px">
-            <div style="font-size:11px;font-weight:700;color:var(--p2);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">🫂 Sunt trusted person pentru</div>
-            <div style="display:flex;align-items:center;gap:10px">
-              <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--g),var(--p));display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800">AI</div>
-              <div style="flex:1">
-                <div style="font-size:13px;font-weight:700">Dr. Alexandru Ionescu</div>
-                <div style="font-size:11px;color:var(--t2)">Vede: ❤️ BPM · 🆘 SOS</div>
-              </div>
-              <div style="font-size:10px;color:var(--g);background:rgba(61,214,140,.1);padding:3px 8px;border-radius:8px;font-weight:700">ACTIV</div>
-            </div>
+          <div style="background:rgba(61,214,140,.06);border:1px solid rgba(61,214,140,.15);border-radius:18px;padding:14px;margin-bottom:16px">
+            <div style="font-size:11px;font-weight:700;color:var(--g);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">Rețeaua ta te monitorizează</div>
+            <div style="font-size:13px;color:var(--t2);line-height:1.5">Persoanele de mai jos au acces la datele tale conform permisiunilor setate.</div>
           </div>
-          <!-- My trusted persons -->
           <div class="section-sep">Trusted persons ai mei</div>
           <div id="my-tp-list">
             <div class="tp-empty">
-              <div class="tp-empty-icon">🫂</div>
+              <div class="tp-empty-icon">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+              </div>
               <div class="tp-empty-title">Adaugă o persoană de încredere</div>
               <div class="tp-empty-sub">Alege cine primește alerte despre starea ta de sănătate și ce date pot vedea.</div>
-              <button class="tp-setup-btn" onclick="openAddTP('client')">+ Configurează Trusted Person</button>
+              <button class="tp-setup-btn" onclick="openAddTP('client')">Configurează Trusted Person</button>
             </div>
           </div>
         </div>
       </div>
 
       <!-- MESSAGES VIEW -->
-      <div class="cv" id="cv-msgs" style="display:none;position:relative">
+      <div class="cv" id="cv-msgs" style="display:none">
         <div style="padding:18px 0 0">
           <div style="font-size:20px;font-weight:900;padding:0 20px;margin-bottom:4px">Mesaje</div>
           <div style="font-size:13px;color:var(--t2);padding:0 20px;margin-bottom:10px">Conversații recente</div>
         </div>
         <div id="cl-threads"></div>
-        <!-- Thread overlay -->
-        <div class="tov" id="cl-tov">
-          <div class="tov-head">
-            <button class="back-btn" onclick="closeTov('cl')">←</button>
-            <div id="cl-tov-av" style="width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0"></div>
-            <div>
-              <div style="font-size:15px;font-weight:700" id="cl-tov-name"></div>
-              <div style="font-size:11px;color:var(--g)">Online</div>
-            </div>
-            <div style="margin-left:auto;display:flex;gap:8px">
-              <button class="icon-btn2" id="cl-tov-wa" style="background:linear-gradient(135deg,#25D366,#128C7E);color:#fff;border:none;border-radius:12px;padding:7px 12px;font-size:12px;font-weight:700;cursor:pointer">📱 WA</button>
-            </div>
-          </div>
-          <div class="tov-msgs" id="cl-tov-msgs"></div>
-          <div class="chat-in-wrap">
-            <textarea class="chat-ta" id="cl-tov-input" rows="1" placeholder="Scrie un mesaj..."
-              onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();tovSend('cl')}"></textarea>
-            <button class="send" onclick="tovSend('cl')">➤</button>
-          </div>
-        </div>
       </div>
 
-      <!-- FILES VIEW -->
+      <!-- ACCOUNT VIEW -->
       <div class="cv" id="cv-files" style="display:none">
-        <div class="fview">
-          <div style="font-size:20px;font-weight:900;margin-bottom:4px">Documente</div>
-          <div style="font-size:13px;color:var(--t2);margin-bottom:16px">Analize și rapoarte medicale</div>
+        <div style="padding:18px 20px 12px;display:flex;align-items:center;gap:14px">
+          <div style="width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#FF4D6D,#FF8A50);display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;flex-shrink:0">AM</div>
+          <div style="flex:1"><div style="font-size:18px;font-weight:900">Andrei Marinescu</div><div style="font-size:12px;color:var(--t2)">Cont client · activ din 2025</div></div>
+        </div>
+        <!-- Personal Info -->
+        <div style="padding:0 20px">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px"><div class="sec-lbl" style="margin-bottom:0">Informații personale</div><button onclick="openEditPersonal()" style="background:none;border:none;color:var(--p2);font-size:12px;font-weight:600;cursor:pointer;font-family:var(--f)">Modifică</button></div>
+          <div style="background:var(--s1);border:1px solid var(--b1);border-radius:20px;padding:4px 16px">
+            <div class="info-row"><span style="color:var(--t2);font-size:13px">Greutate</span><span id="disp-weight" style="font-weight:600;font-size:13px">78.4 kg</span></div>
+            <div class="info-row"><span style="color:var(--t2);font-size:13px">Înălțime</span><span id="disp-height" style="font-weight:600;font-size:13px">182 cm</span></div>
+            <div class="info-row"><span style="color:var(--t2);font-size:13px">Vârstă</span><span id="disp-age" style="font-weight:600;font-size:13px">28 ani</span></div>
+            <div class="info-row" style="border-bottom:none"><span style="color:var(--t2);font-size:13px">Grup sangvin</span><span id="disp-blood" style="font-weight:600;font-size:13px">A+</span></div>
+          </div>
+        </div>
+        <!-- Medical Conditions -->
+        <div style="padding:16px 20px 0">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px"><div class="sec-lbl" style="margin-bottom:0">Condiții medicale</div><button onclick="addConditionTag()" style="width:26px;height:26px;border-radius:50%;background:var(--p);border:none;color:#fff;cursor:pointer;font-size:18px;line-height:1;display:flex;align-items:center;justify-content:center;font-family:var(--f)">+</button></div>
+          <div id="acc-conditions" style="display:flex;flex-wrap:wrap;gap:8px"></div>
+        </div>
+        <!-- Devices -->
+        <div style="padding:16px 20px 0">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px"><div class="sec-lbl" style="margin-bottom:0">Dispozitive conectate</div><button onclick="addDevice()" style="width:26px;height:26px;border-radius:50%;background:var(--p);border:none;color:#fff;cursor:pointer;font-size:18px;line-height:1;display:flex;align-items:center;justify-content:center;font-family:var(--f)">+</button></div>
+          <div id="acc-devices"></div>
+        </div>
+        <!-- Baseline -->
+        <div style="padding:16px 20px 0">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px"><div class="sec-lbl" style="margin-bottom:0">Baseline măsurători</div><button onclick="openBaselineEdit()" style="background:none;border:none;color:var(--p2);font-size:12px;font-weight:600;cursor:pointer;font-family:var(--f)">Editează</button></div>
+          <div style="background:var(--s1);border:1px solid var(--b1);border-radius:20px;padding:4px 16px">
+            <div class="info-row"><span style="color:var(--t2);font-size:13px">BPM repaus</span><span id="bl-bpm" style="font-weight:600;font-size:13px">72 bpm</span></div>
+            <div class="info-row"><span style="color:var(--t2);font-size:13px">Tensiune normală</span><span id="bl-bp" style="font-weight:600;font-size:13px">120/80 mmHg</span></div>
+            <div class="info-row"><span style="color:var(--t2);font-size:13px">SpO₂ normal</span><span id="bl-spo2" style="font-weight:600;font-size:13px">99%</span></div>
+            <div class="info-row" style="border-bottom:none"><span style="color:var(--t2);font-size:13px">HRV normal</span><span id="bl-hrv" style="font-weight:600;font-size:13px">55 ms</span></div>
+          </div>
+        </div>
+        <!-- Privacy -->
+        <div style="padding:16px 20px 0">
+          <div class="sec-lbl">Confidențialitate</div>
+          <div style="background:var(--s1);border:1px solid var(--b1);border-radius:20px;padding:4px 16px">
+            <div class="trow"><div><div class="trow-label">Microfon</div><div class="trow-sub">Necesar pentru activare vocală SOS</div></div><div class="tog on" id="priv-mic" onclick="togToggle(this);updateKwSection()"></div></div>
+            <div class="trow" style="border-bottom:none"><div><div class="trow-label">Locație</div><div class="trow-sub">Activă în urgențe și SOS</div></div><div class="tog on" id="priv-loc" onclick="togToggle(this)"></div></div>
+          </div>
+        </div>
+        <!-- SOS Keywords -->
+        <div style="padding:16px 20px 0">
+          <div class="sec-lbl">Activare vocală SOS</div>
+          <div id="sos-kw-section" style="background:var(--s1);border:1px solid var(--b1);border-radius:20px;padding:14px 16px">
+            <div id="sos-kw-disabled" style="display:none;opacity:.45;pointer-events:none">
+              <div style="font-size:12px;color:var(--t2);margin-bottom:10px">Activează microfonul pentru a folosi această funcție.</div>
+            </div>
+            <div id="sos-kw-content">
+              <div style="font-size:12px;color:var(--t2);margin-bottom:10px;line-height:1.5">Spune unul dintre aceste cuvinte cheie pentru a activa SOS automat.</div>
+              <div id="kw-list" style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px"></div>
+              <div style="display:flex;gap:8px;align-items:center">
+                <input class="finput" id="kw-input" placeholder="Adaugă cuvânt cheie..." type="text" style="flex:1;padding:9px 12px;font-size:13px" onkeydown="if(event.key==='Enter'){addKeyword();event.preventDefault()}">
+                <button onclick="addKeyword()" style="background:var(--p);color:#fff;border:none;border-radius:10px;padding:9px 14px;font-size:13px;font-weight:700;cursor:pointer;font-family:var(--f)">+</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Appearance -->
+        <div style="padding:16px 20px 0">
+          <div class="sec-lbl">Aspect</div>
+          <div style="background:var(--s1);border:1px solid var(--b1);border-radius:20px;padding:4px 16px">
+            <div class="trow" style="border-bottom:none"><div><div class="trow-label">Temă luminoasă</div><div class="trow-sub">Comută la light mode</div></div><div class="tog" id="theme-tog" onclick="toggleTheme()"></div></div>
+          </div>
+        </div>
+        <!-- Documents -->
+        <div style="padding:16px 20px 0">
+          <div class="sec-lbl">Documente medicale</div>
           <div class="upload-z" onclick="trigUpload('cl-finput')">
-            <div style="font-size:32px;margin-bottom:8px">📄</div>
-            <div style="font-size:14px;font-weight:700">Adaugă document</div>
-            <div style="font-size:12px;color:var(--t2);margin-top:4px">PDF, JPG, PNG</div>
+            <div style="display:flex;justify-content:center;margin-bottom:8px;color:var(--t2)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></div>
+            <div style="font-size:13px;font-weight:700">Adaugă document</div>
+            <div style="font-size:11px;color:var(--t2);margin-top:3px">PDF, JPG, PNG</div>
           </div>
           <input type="file" id="cl-finput" accept=".pdf,.jpg,.png,.jpeg" onchange="addFile('cl',this)">
           <div id="cl-flist"></div>
         </div>
+        <div style="height:20px"></div>
+      </div>
+    </div>
+
+    <!-- Thread overlay (client) - FIXED position -->
+    <div class="tov" id="cl-tov">
+      <div class="tov-head">
+        <button class="back-btn" onclick="closeTov('cl')">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <div id="cl-tov-av" style="width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0"></div>
+        <div>
+          <div style="font-size:15px;font-weight:700" id="cl-tov-name"></div>
+          <div style="font-size:11px;color:var(--g)">Online</div>
+        </div>
+        <div style="margin-left:auto;display:flex;gap:8px">
+          <button class="icon-btn2" id="cl-tov-wa" style="background:linear-gradient(135deg,#25D366,#128C7E);color:#fff;border:none;border-radius:12px;padding:7px 12px;font-size:12px;font-weight:700;cursor:pointer">WhatsApp</button>
+        </div>
+      </div>
+      <div class="tov-msgs" id="cl-tov-msgs"></div>
+      <div class="tov-input-wrap">
+        <textarea class="chat-ta" id="cl-tov-input" rows="1" placeholder="Scrie un mesaj..."
+          onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();tovSend('cl')}"></textarea>
+        <button class="send" onclick="tovSend('cl')">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M2 21l21-9L2 3v7l15 2-15 2v7z"/></svg>
+        </button>
       </div>
     </div>
 
     <!-- BOTTOM NAV -->
     <div class="bnav">
-      <button class="btab active" id="btn-home" onclick="clNav('home')"><span class="btab-icon">🏠</span><span class="btab-label">Acasă</span><div class="btab-dot"></div></button>
-      <button class="btab" id="btn-ai" onclick="clNav('ai')"><span class="btab-icon">🤖</span><span class="btab-label">AI</span><div class="btab-dot"></div></button>
-      <button class="btab" id="btn-trusted" onclick="clNav('trusted')"><span class="btab-icon">🫂</span><span class="btab-label">Trusted</span><div class="btab-dot"></div></button>
-      <button class="btab" id="btn-msgs" onclick="clNav('msgs')"><span class="btab-icon">💬</span><span class="btab-label">Mesaje</span><div class="btab-dot"></div></button>
-      <button class="btab" id="btn-files" onclick="clNav('files')"><span class="btab-icon">📁</span><span class="btab-label">Fișiere</span><div class="btab-dot"></div></button>
+      <button class="btab active" id="btn-home" onclick="clNav('home')">
+        <span class="btab-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H5a1 1 0 01-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg></span>
+        <span class="btab-label">Acasă</span><div class="btab-dot"></div>
+      </button>
+      <button class="btab" id="btn-ai" onclick="clNav('ai')">
+        <span class="btab-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></span>
+        <span class="btab-label">AI</span><div class="btab-dot"></div>
+      </button>
+      <button class="btab" id="btn-trusted" onclick="clNav('trusted')">
+        <span class="btab-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></span>
+        <span class="btab-label">Trusted</span><div class="btab-dot"></div>
+      </button>
+      <button class="btab" id="btn-msgs" onclick="clNav('msgs')">
+        <span class="btab-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></span>
+        <span class="btab-label">Mesaje</span><div class="btab-dot"></div>
+      </button>
+      <button class="btab" id="btn-files" onclick="clNav('files')">
+        <span class="btab-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg></span>
+        <span class="btab-label">Cont</span><div class="btab-dot"></div>
+      </button>
     </div>
   </div>
 </div>
 
-<!-- ════════════════ SPECIALIST APP ════════════════ -->
+<!-- SPECIALIST APP -->
 <div id="spec-app">
   <div class="spec-top">
-    <div class="spec-logo"><div class="spec-logo-dot"></div>VitalLink</div>
+    <div class="spec-logo"><img src="insigna site.jpeg" style="width:28px;height:28px;border-radius:7px;object-fit:cover;object-position:50% 20%;background:#fff">Safety Net</div>
     <div class="spec-tabs">
-      <button class="stab active" id="stab-pts" onclick="specNav('pts')">🏥 Pacienți</button>
-      <button class="stab" id="stab-health" onclick="specNav('health')">💊 Sănătatea mea</button>
-      <button class="stab" id="stab-trusted" onclick="specNav('trusted')">🫂 Trusted</button>
-      <button class="stab" id="stab-msgs" onclick="specNav('msgs')">💬 Mesaje</button>
-      <button class="stab" id="stab-files" onclick="specNav('files')">📁 Fișiere</button>
+      <button class="stab active" id="stab-pts" data-mode="pro" onclick="specNav('pts')">Pacienți</button>
+      <button class="stab" id="stab-msgs" data-mode="pro" onclick="specNav('msgs')">Mesaje</button>
+      <button class="stab" id="stab-health" data-mode="pers" style="display:none" onclick="specNav('health')">Sănătatea mea</button>
+      <button class="stab" id="stab-trusted" data-mode="pers" style="display:none" onclick="specNav('trusted')">Trusted</button>
+      <button class="stab" id="stab-files" data-mode="pers" style="display:none" onclick="specNav('files')">Fișiere</button>
     </div>
-    <div class="spec-av" onclick="loginAs('client')" title="Switch la client">AI</div>
+    <div class="spec-av" onclick="loginAs('client')" title="Switch la client" style="margin-left:auto">AI</div>
   </div>
 
   <div class="spec-body">
     <!-- PATIENTS -->
     <div class="sv show" id="sv-pts">
       <div class="spec-title">Pacienții mei</div>
-      <div class="spec-sub">4 pacienți activi · 1 alertă activă</div>
+      <div class="spec-sub" id="pts-sub">10 pacienți activi · 2 alerte · 2 monitorizare</div>
       <div id="spec-pat-list"></div>
     </div>
 
@@ -570,14 +835,14 @@ input[type=file]{display:none}
       <div class="spec-title">Sănătatea mea</div>
       <div class="spec-sub">Dr. Ionescu · Smartwatch conectat</div>
       <div class="sg4">
-        <div class="sc-sm"><div class="sc-label">BPM</div><div class="sc-val cg" id="dr-bpm">68</div><div class="sc-trend cg">✓ Normal</div></div>
-        <div class="sc-sm"><div class="sc-label">Tensiune</div><div class="sc-val">120<span class="sc-unit">/80</span></div><div class="sc-trend cg">✓ Normal</div></div>
-        <div class="sc-sm"><div class="sc-label">SpO2</div><div class="sc-val">99<span class="sc-unit">%</span></div><div class="sc-trend cg">✓ Normal</div></div>
-        <div class="sc-sm"><div class="sc-label">HRV</div><div class="sc-val">58<span class="sc-unit">ms</span></div><div class="sc-trend cg">✓ Bun</div></div>
+        <div class="sc-sm"><div class="sc-label">BPM</div><div class="sc-val cg" id="dr-bpm">68</div><div class="sc-trend cg">Normal</div></div>
+        <div class="sc-sm"><div class="sc-label">Tensiune</div><div class="sc-val">120<span class="sc-unit">/80</span></div><div class="sc-trend cg">Normal</div></div>
+        <div class="sc-sm"><div class="sc-label">SpO2</div><div class="sc-val">99<span class="sc-unit">%</span></div><div class="sc-trend cg">Normal</div></div>
+        <div class="sc-sm"><div class="sc-label">HRV</div><div class="sc-val">58<span class="sc-unit">ms</span></div><div class="sc-trend cg">Bun</div></div>
       </div>
       <div class="sg2">
         <div class="scard"><div class="sc-label">Pași azi</div><div class="sc-val">8.412</div><div class="sc-trend cg">84% din țintă</div></div>
-        <div class="scard"><div class="sc-label">Somn</div><div class="sc-val">7<span class="sc-unit">h 20m</span></div><div class="sc-trend cg">✓ Optim</div></div>
+        <div class="scard"><div class="sc-label">Somn</div><div class="sc-val">7<span class="sc-unit">h 20m</span></div><div class="sc-trend cg">Optim</div></div>
       </div>
     </div>
 
@@ -589,13 +854,22 @@ input[type=file]{display:none}
       </div>
       <div class="spec-sub">Persoanele de încredere ale dr. Ionescu</div>
       <div style="background:rgba(79,142,247,.07);border:1px solid rgba(79,142,247,.15);border-radius:18px;padding:14px;margin-bottom:16px">
-        <div style="font-size:11px;font-weight:700;color:var(--p2);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">🫂 Sunt trusted person pentru</div>
-        <div style="font-size:13px;color:var(--t2)">Niciun pacient nu te-a adăugat ca trusted person încă.</div>
+        <div style="font-size:11px;font-weight:700;color:var(--p2);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px">Sunt trusted person pentru</div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+          <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#FF9F0A,#FF4D6D);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;flex-shrink:0">AM</div>
+          <div style="flex:1">
+            <div style="font-size:13px;font-weight:700">Andrei Marinescu</div>
+            <div style="font-size:11px;color:var(--t2)">Vede: BPM · Urgențe · Medicație · Istoric</div>
+          </div>
+          <div style="font-size:10px;color:var(--g);background:rgba(61,214,140,.1);padding:3px 8px;border-radius:8px;font-weight:700">ACTIV</div>
+        </div>
       </div>
       <div style="font-size:11px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.1em;border-bottom:1px solid var(--b1);padding-bottom:10px;margin-bottom:14px">Trusted persons ai mei</div>
       <div id="spec-tp-list">
         <div style="background:var(--s1);border:1px solid var(--b1);border-radius:20px;padding:28px;text-align:center">
-          <div style="font-size:40px;margin-bottom:10px">🫂</div>
+          <div style="display:flex;justify-content:center;margin-bottom:10px;color:var(--t2)">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+          </div>
           <div style="font-size:16px;font-weight:800;margin-bottom:6px">Configurează Trusted Persons</div>
           <div style="font-size:13px;color:var(--t2);margin-bottom:16px">Adaugă persoane care să fie notificate în cazul unei urgențe medicale.</div>
           <button style="background:linear-gradient(135deg,var(--p),var(--pu));color:#fff;border:none;border-radius:14px;padding:12px 24px;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--f)" onclick="openAddTP('spec')">+ Configurează</button>
@@ -608,26 +882,6 @@ input[type=file]{display:none}
       <div class="spec-title">Mesaje</div>
       <div class="spec-sub">Pacienți și contacte</div>
       <div id="spec-threads"></div>
-      <div class="spec-thread" id="spec-tov">
-        <div class="tov-head" style="border-bottom:1px solid var(--b1)">
-          <button class="back-btn" onclick="closeTov('spec')">←</button>
-          <div id="spec-tov-av" style="width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0"></div>
-          <div>
-            <div style="font-size:15px;font-weight:700" id="spec-tov-name"></div>
-            <div style="font-size:11px;color:var(--g)">Online</div>
-          </div>
-          <div style="margin-left:auto;display:flex;gap:8px">
-            <button id="spec-tov-vitals" style="display:none;background:rgba(255,77,109,.15);color:var(--r);border:none;border-radius:12px;padding:7px 12px;font-size:12px;font-weight:700;cursor:pointer">❤️ Vitale</button>
-            <button id="spec-tov-wa" style="background:linear-gradient(135deg,#25D366,#128C7E);color:#fff;border:none;border-radius:12px;padding:7px 12px;font-size:12px;font-weight:700;cursor:pointer">📱 WA</button>
-          </div>
-        </div>
-        <div class="tov-msgs" id="spec-tov-msgs" style="padding:16px 24px"></div>
-        <div class="chat-in-wrap" style="padding:10px 24px">
-          <textarea class="chat-ta" id="spec-tov-input" rows="1" placeholder="Scrie un mesaj..."
-            onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();tovSend('spec')}"></textarea>
-          <button class="send" onclick="tovSend('spec')">➤</button>
-        </div>
-      </div>
     </div>
 
     <!-- FILES -->
@@ -635,7 +889,9 @@ input[type=file]{display:none}
       <div class="spec-title">Documente medicale</div>
       <div class="spec-sub">Rapoarte, analize, rețete</div>
       <div class="dr-upload-zone" style="background:var(--s1);border:2px dashed var(--b1);border-radius:18px;padding:26px;text-align:center;cursor:pointer;margin-bottom:16px;transition:all .2s" onclick="trigUpload('spec-finput')" onmouseenter="this.style.borderColor='rgba(79,142,247,.4)'" onmouseleave="this.style.borderColor='var(--b1)'">
-        <div style="font-size:28px;margin-bottom:6px">📎</div>
+        <div style="display:flex;justify-content:center;margin-bottom:6px;color:var(--t2)">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        </div>
         <div style="font-size:14px;font-weight:700">Adaugă document</div>
         <div style="font-size:12px;color:var(--t2);margin-top:4px">PDF, JPG, PNG · suport multiplu</div>
       </div>
@@ -646,23 +902,62 @@ input[type=file]{display:none}
     <!-- Patient detail panel -->
     <div class="pd-panel" id="pd-panel">
       <div class="pd-top">
-        <button class="back-btn" onclick="closePD()">←</button>
+        <button class="back-btn" onclick="closePD()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
         <div id="pd-av" style="width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:800"></div>
         <div style="flex:1">
           <div style="font-size:18px;font-weight:800" id="pd-name"></div>
           <div style="font-size:12px;color:var(--t2)" id="pd-meta"></div>
         </div>
         <div style="display:flex;gap:8px">
-          <button id="pd-wa" style="background:linear-gradient(135deg,#25D366,#128C7E);color:#fff;border:none;border-radius:12px;padding:8px 14px;font-size:12px;font-weight:700;cursor:pointer">📱 WA</button>
-          <button id="pd-msg-btn" style="background:var(--p);color:#fff;border:none;border-radius:12px;padding:8px 14px;font-size:12px;font-weight:700;cursor:pointer">💬 Mesaj</button>
+          <button id="pd-wa" style="background:linear-gradient(135deg,#25D366,#128C7E);color:#fff;border:none;border-radius:12px;padding:8px 14px;font-size:12px;font-weight:700;cursor:pointer">WhatsApp</button>
+          <button id="pd-msg-btn" style="background:var(--p);color:#fff;border:none;border-radius:12px;padding:8px 14px;font-size:12px;font-weight:700;cursor:pointer">Mesaj</button>
         </div>
       </div>
       <div class="pd-content" id="pd-content"></div>
     </div>
+
+    <!-- Spec thread overlay - FIXED position -->
+    <div class="spec-thread" id="spec-tov">
+      <div class="tov-head" style="border-bottom:1px solid var(--b1)">
+        <button class="back-btn" onclick="closeTov('spec')">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <div id="spec-tov-av" style="width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0"></div>
+        <div>
+          <div style="font-size:15px;font-weight:700" id="spec-tov-name"></div>
+          <div style="font-size:11px;color:var(--g)">Online</div>
+        </div>
+        <div style="margin-left:auto;display:flex;gap:8px">
+          <button id="spec-tov-vitals" style="display:none;background:rgba(255,77,109,.15);color:var(--r);border:none;border-radius:12px;padding:7px 12px;font-size:12px;font-weight:700;cursor:pointer">Vitale</button>
+          <button id="spec-tov-wa" style="background:linear-gradient(135deg,#25D366,#128C7E);color:#fff;border:none;border-radius:12px;padding:7px 12px;font-size:12px;font-weight:700;cursor:pointer">WhatsApp</button>
+        </div>
+      </div>
+      <div class="tov-msgs" id="spec-tov-msgs" style="padding:16px 24px"></div>
+      <div class="tov-input-wrap" style="padding:10px 24px;padding-bottom:calc(10px + env(safe-area-inset-bottom))">
+        <textarea class="chat-ta" id="spec-tov-input" rows="1" placeholder="Scrie un mesaj..."
+          onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();tovSend('spec')}"></textarea>
+        <button class="send" onclick="tovSend('spec')">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M2 21l21-9L2 3v7l15 2-15 2v7z"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+  <!-- SPEC MODE BAR -->
+  <div class="spec-mode-bar">
+    <button class="smode active" id="smode-pro" onclick="switchSpecMode('pro')">
+      <span class="smode-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg></span>
+      Cont profesional
+    </button>
+    <button class="smode" id="smode-pers" onclick="switchSpecMode('pers')">
+      <span class="smode-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg></span>
+      Cont personal
+    </button>
   </div>
 </div>
 
-<!-- ════════════════ MODALS ════════════════ -->
+<!-- MODALS -->
 
 <!-- Add Trusted Person -->
 <div class="modal-bg" id="add-tp-modal">
@@ -674,13 +969,17 @@ input[type=file]{display:none}
       <div class="fl"><div class="fl-label">Telefon (WhatsApp)</div><input class="finput" id="tp-phone" placeholder="+40 7XX XXX XXX" type="tel"></div>
       <div class="fl"><div class="fl-label">Relație</div><input class="finput" id="tp-role" placeholder="ex: Mamă, Partener, Prieten" type="text"></div>
       <div style="margin:18px 0 10px;font-size:12px;font-weight:800;color:var(--t2);text-transform:uppercase;letter-spacing:.1em">Ce poate vedea această persoană:</div>
-      <div class="trow"><div><div class="trow-label">❤️ Date cardiace</div><div class="trow-sub">BPM, tensiune, SpO2 în timp real</div></div><div class="tog on" id="tp-tog-heart" onclick="togToggle(this)"></div></div>
-      <div class="trow"><div><div class="trow-label">🆘 Alerte de urgență</div><div class="trow-sub">SOS, BPM critic, tensiune periculoasă</div></div><div class="tog on" id="tp-tog-emrg" onclick="togToggle(this)"></div></div>
-      <div class="trow"><div><div class="trow-label">😴 Date somn</div><div class="trow-sub">Scor somn, faze, anomalii nocturne</div></div><div class="tog" id="tp-tog-sleep" onclick="togToggle(this)"></div></div>
-      <div class="trow"><div><div class="trow-label">🏃 Activitate fizică</div><div class="trow-sub">Pași, calorii, antrenamente</div></div><div class="tog" id="tp-tog-act" onclick="togToggle(this)"></div></div>
-      <div class="trow"><div><div class="trow-label">💊 Medicație</div><div class="trow-sub">Lista de medicamente curente</div></div><div class="tog" id="tp-tog-med" onclick="togToggle(this)"></div></div>
-      <div class="trow"><div><div class="trow-label">📋 Istoric medical</div><div class="trow-sub">Diagnostice, consultații, analize</div></div><div class="tog" id="tp-tog-hist" onclick="togToggle(this)"></div></div>
-      <div class="trow"><div><div class="trow-label">📍 Locație</div><div class="trow-sub">Vizibil doar în caz de urgență SOS</div></div><div class="tog on" id="tp-tog-loc" onclick="togToggle(this)"></div></div>
+      <div class="trow"><div><div class="trow-label">Date cardiace</div><div class="trow-sub">BPM, tensiune, SpO2 în timp real</div></div><div class="tog on" id="tp-tog-heart" onclick="togToggle(this)"></div></div>
+      <div class="trow"><div><div class="trow-label">Alerte de urgență</div><div class="trow-sub">SOS, BPM critic, tensiune periculoasă</div></div><div class="tog on" id="tp-tog-emrg" onclick="togToggle(this)"></div></div>
+      <div class="trow"><div><div class="trow-label">Date somn</div><div class="trow-sub">Scor somn, faze, anomalii nocturne</div></div><div class="tog" id="tp-tog-sleep" onclick="togToggle(this)"></div></div>
+      <div class="trow"><div><div class="trow-label">Activitate fizică</div><div class="trow-sub">Pași, calorii, antrenamente</div></div><div class="tog" id="tp-tog-act" onclick="togToggle(this)"></div></div>
+      <div class="trow"><div><div class="trow-label">Medicație</div><div class="trow-sub">Lista de medicamente curente</div></div><div class="tog" id="tp-tog-med" onclick="togToggle(this)"></div></div>
+      <div class="trow"><div><div class="trow-label">Istoric medical</div><div class="trow-sub">Diagnostice, consultații, analize</div></div><div class="tog" id="tp-tog-hist" onclick="togToggle(this)"></div></div>
+      <div class="trow"><div><div class="trow-label">Locație</div><div class="trow-sub">Vizibil doar în caz de urgență SOS</div></div><div class="tog on" id="tp-tog-loc" onclick="togToggle(this)"></div></div>
+      <div style="margin-top:18px;margin-bottom:8px;font-size:12px;font-weight:800;color:var(--t2);text-transform:uppercase;letter-spacing:.1em">Trimite notificări când:</div>
+      <div class="trow"><div><div class="trow-label">BPM depășește</div></div><div style="display:flex;align-items:center;gap:6px"><input type="number" id="tp-notif-bpm" value="100" min="60" max="200" style="width:58px;background:var(--s3);border:1px solid var(--b1);border-radius:8px;padding:5px 8px;color:var(--t1);font-size:13px;font-weight:700;font-family:var(--f);outline:none;text-align:center"><span style="font-size:12px;color:var(--t2)">bpm</span></div></div>
+      <div class="trow"><div><div class="trow-label">SpO₂ scade sub</div></div><div style="display:flex;align-items:center;gap:6px"><input type="number" id="tp-notif-spo2" value="95" min="80" max="100" style="width:58px;background:var(--s3);border:1px solid var(--b1);border-radius:8px;padding:5px 8px;color:var(--t1);font-size:13px;font-weight:700;font-family:var(--f);outline:none;text-align:center"><span style="font-size:12px;color:var(--t2)">%</span></div></div>
+      <div class="trow" style="border-bottom:none"><div><div class="trow-label">SOS este activat</div><div class="trow-sub">Întotdeauna</div></div><div class="tog on" style="opacity:.5;pointer-events:none"></div></div>
     </div>
     <button class="m-btn" onclick="saveTP()">Salvează</button>
     <button class="m-btn m-btn-ghost" onclick="closeAddTP()">Anulează</button>
@@ -698,53 +997,196 @@ input[type=file]{display:none}
   </div>
 </div>
 
+<!-- Notification Settings Modal -->
+<div class="modal-bg" id="notif-modal">
+  <div class="msheet">
+    <div class="m-handle"></div>
+    <div class="m-title">Setări notificări</div>
+    <div class="m-body">
+      <div style="font-size:12px;color:var(--t2);margin-bottom:14px;line-height:1.5">Alege pentru ce anomalii primești alerte în timp real de la pacienți.</div>
+      <div class="trow"><div><div class="trow-label">BPM ridicat (&gt;100 bpm)</div><div class="trow-sub">Tahicardie sinusală sau supraventriculară</div></div><div class="tog on" id="notif-bpm-high" onclick="togToggle(this)"></div></div>
+      <div class="trow"><div><div class="trow-label">BPM scăzut (&lt;50 bpm)</div><div class="trow-sub">Bradicardie, risc bloc cardiac</div></div><div class="tog on" id="notif-bpm-low" onclick="togToggle(this)"></div></div>
+      <div class="trow"><div><div class="trow-label">Tensiune arterială ridicată</div><div class="trow-sub">TAS &gt;140 sau TAD &gt;90 mmHg</div></div><div class="tog on" id="notif-bp" onclick="togToggle(this)"></div></div>
+      <div class="trow"><div><div class="trow-label">SpO₂ scăzut (&lt;95%)</div><div class="trow-sub">Desaturare oxigen, risc respirator</div></div><div class="tog on" id="notif-spo2" onclick="togToggle(this)"></div></div>
+      <div class="trow"><div><div class="trow-label">Cădere detectată</div><div class="trow-sub">Senzor giroscop sesizează mișcare bruscă</div></div><div class="tog on" id="notif-fall" onclick="togToggle(this)"></div></div>
+      <div class="trow"><div><div class="trow-label">Inactivitate prelungită</div><div class="trow-sub">Fără mișcare &gt;12 ore în afara somnului</div></div><div class="tog" id="notif-inact" onclick="togToggle(this)"></div></div>
+      <div class="trow"><div><div class="trow-label">Nivel stres critic (&gt;85/100)</div><div class="trow-sub">HRV scăzut corelat cu stres crescut</div></div><div class="tog" id="notif-stress" onclick="togToggle(this)"></div></div>
+      <div class="trow"><div><div class="trow-label">Urgență SOS activată</div><div class="trow-sub">Pacientul a apăsat butonul SOS</div></div><div class="tog on" id="notif-sos" onclick="togToggle(this)"></div></div>
+    </div>
+    <button class="m-btn" onclick="saveNotifSettings()">Salvează preferințele</button>
+    <button class="m-btn m-btn-ghost" onclick="closeNotifSettings()">Anulează</button>
+  </div>
+</div>
+
+<!-- SOS Success Screen -->
+<div id="sos-success" style="position:fixed;inset:0;background:var(--bg);z-index:900;display:none;flex-direction:column;align-items:center;padding:40px 24px 24px;overflow-y:auto">
+  <div style="text-align:center;margin-bottom:28px">
+    <div style="width:72px;height:72px;background:rgba(61,214,140,.15);border:2px solid var(--g);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--g)" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+    </div>
+    <div style="font-size:22px;font-weight:900;color:var(--t1);line-height:1.2;margin-bottom:8px">Serviciile medicale au fost<br>apelate cu succes</div>
+    <div style="font-size:14px;color:var(--t2);line-height:1.6">Detaliile tale au fost trimise automat.<br>Rămâi calm — ajutorul este pe drum.</div>
+  </div>
+  <div style="width:100%;max-width:400px;border-radius:20px;overflow:hidden;border:1px solid var(--b1);margin-bottom:24px">
+    <div style="background:var(--s2);padding:10px 16px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--b1)">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--r)" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="10" r="3"/><path d="M12 2a8 8 0 00-8 8c0 5.4 7.4 12.3 7.7 12.6a.5.5 0 00.6 0C12.6 22.3 20 15.4 20 10a8 8 0 00-8-8z"/></svg>
+      <span style="font-size:12px;font-weight:600;color:var(--t2)">Locația ta: Liceul Tudor Vianu, București</span>
+    </div>
+    <div style="height:260px;position:relative;background:#1a2030">
+      <iframe src="https://www.openstreetmap.org/export/embed.html?bbox=26.078%2C44.445%2C26.096%2C44.455&layer=mapnik&marker=44.44965%2C26.08657" style="width:100%;height:100%;border:none;filter:hue-rotate(180deg) invert(0.85) saturate(1.2)" loading="lazy" title="Locatie"></iframe>
+    </div>
+    <div style="background:rgba(255,77,109,.08);padding:10px 16px;border-top:1px solid rgba(255,77,109,.2)">
+      <div style="font-size:11px;color:var(--r);font-weight:700">Str. Arh. Ion Mincu 10, Sector 1, București</div>
+      <div style="font-size:11px;color:var(--t3);margin-top:2px">Transmis echipei de urgență · <span id="sos-time-sent"></span></div>
+    </div>
+  </div>
+  <div style="background:var(--s1);border:1px solid var(--b1);border-radius:18px;padding:14px 16px;width:100%;max-width:400px;margin-bottom:20px">
+    <div style="font-size:11px;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">Date transmise automat</div>
+    <div style="font-size:12px;color:var(--t2);line-height:1.8">BPM: 142 · TAS: 138/89 · SpO₂: 98%<br>Medicație: Bisoprolol 2.5mg · Alprazolam 0.25mg<br>Alergii: Penicilină, Ibuprofen<br>Trusted persons: alertate</div>
+  </div>
+  <button onclick="closeSosSuccess()" style="background:var(--s2);border:1px solid var(--b1);border-radius:16px;padding:14px 32px;font-size:14px;font-weight:700;color:var(--t1);cursor:pointer;font-family:var(--f);width:100%;max-width:400px">Închide</button>
+</div>
+
+<!-- Edit Personal Info Modal -->
+<div class="modal-bg" id="edit-personal-modal">
+  <div class="msheet">
+    <div class="m-handle"></div>
+    <div class="m-title">Informații personale</div>
+    <div class="m-body">
+      <div class="fl"><div class="fl-label">Greutate (kg)</div><input class="finput" id="inp-weight" placeholder="ex: 78.4" type="number" step="0.1"></div>
+      <div class="fl"><div class="fl-label">Înălțime (cm)</div><input class="finput" id="inp-height" placeholder="ex: 182" type="number"></div>
+      <div class="fl"><div class="fl-label">Vârstă (ani)</div><input class="finput" id="inp-age" placeholder="ex: 28" type="number"></div>
+      <div class="fl"><div class="fl-label">Grup sangvin</div>
+        <select class="finput" id="inp-blood" style="cursor:pointer">
+          <option>A+</option><option>A-</option><option>B+</option><option>B-</option><option>AB+</option><option>AB-</option><option>0+</option><option>0-</option>
+        </select>
+      </div>
+    </div>
+    <button class="m-btn" onclick="savePersonalInfo()">Salvează</button>
+    <button class="m-btn m-btn-ghost" onclick="closeModal('edit-personal-modal')">Anulează</button>
+  </div>
+</div>
+
+<!-- Baseline Edit Modal -->
+<div class="modal-bg" id="baseline-modal">
+  <div class="msheet">
+    <div class="m-handle"></div>
+    <div class="m-title">Baseline măsurători</div>
+    <div class="m-body">
+      <div style="font-size:12px;color:var(--t2);margin-bottom:14px;line-height:1.5">Valorile de referință ale corpului tău în repaus. Abaterile față de acestea generează alerte.</div>
+      <div class="fl"><div class="fl-label">BPM repaus</div><input class="finput" id="bl-inp-bpm" placeholder="ex: 72" type="number"></div>
+      <div class="fl"><div class="fl-label">Tensiune normală (ex: 120/80)</div><input class="finput" id="bl-inp-bp" placeholder="ex: 120/80" type="text"></div>
+      <div class="fl"><div class="fl-label">SpO₂ normal (%)</div><input class="finput" id="bl-inp-spo2" placeholder="ex: 99" type="number"></div>
+      <div class="fl"><div class="fl-label">HRV normal (ms)</div><input class="finput" id="bl-inp-hrv" placeholder="ex: 55" type="number"></div>
+    </div>
+    <button class="m-btn" onclick="saveBaseline()">Aplică baseline</button>
+    <button class="m-btn m-btn-ghost" onclick="closeModal('baseline-modal')">Anulează</button>
+  </div>
+</div>
+
+<!-- Device Search Popup -->
+<div id="device-popup" style="position:fixed;inset:0;background:rgba(0,0,0,.8);backdrop-filter:blur(16px);z-index:700;display:none;align-items:center;justify-content:center;padding:24px">
+  <div style="background:var(--s1);border-radius:24px;padding:32px 24px;width:100%;max-width:320px;text-align:center;border:1px solid var(--b1)">
+    <div id="dev-scanning" style="display:block">
+      <div style="display:flex;justify-content:center;margin-bottom:16px">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--p)" stroke-width="1.5" stroke-linecap="round" style="animation:sb 1.5s ease-in-out infinite"><circle cx="12" cy="12" r="10"/><path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72m2.54-15.38c-3.72 4.35-8.94 5.66-16.88 5.85m19.5 1.9c-3.5-.93-6.63-.82-8.94 0-2.58.92-5.01 2.86-7.44 6.32"/></svg>
+      </div>
+      <div style="font-size:16px;font-weight:800;margin-bottom:6px">Scanăm dispozitive...</div>
+      <div style="font-size:13px;color:var(--t2)">Bluetooth și Wi-Fi activ</div>
+      <div style="display:flex;justify-content:center;gap:6px;margin-top:16px">
+        <div class="td" style="width:8px;height:8px"></div><div class="td" style="width:8px;height:8px;animation-delay:.15s"></div><div class="td" style="width:8px;height:8px;animation-delay:.3s"></div>
+      </div>
+    </div>
+    <div id="dev-none" style="display:none">
+      <div style="display:flex;justify-content:center;margin-bottom:14px;color:var(--t3)"><svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg></div>
+      <div style="font-size:16px;font-weight:800;margin-bottom:6px">Niciun device găsit</div>
+      <div style="font-size:13px;color:var(--t2);line-height:1.5">Asigură-te că dispozitivul este aproape și are Bluetooth activ.</div>
+      <button onclick="closeDevicePopup()" style="background:var(--s2);border:1px solid var(--b1);border-radius:14px;padding:11px 28px;font-size:13px;font-weight:700;color:var(--t1);cursor:pointer;font-family:var(--f);margin-top:18px">Închide</button>
+    </div>
+  </div>
+</div>
+
+<!-- Add Condition Modal -->
+<div class="modal-bg" id="add-condition-modal">
+  <div class="msheet">
+    <div class="m-handle"></div>
+    <div class="m-title">Adaugă condiție medicală</div>
+    <div class="m-body">
+      <div class="fl"><div class="fl-label">Condiție</div><input class="finput" id="inp-condition" placeholder="ex: Diabet tip 2, Astm..." type="text"></div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:4px">
+        <button onclick="selectCondition('Hipertensiune')" class="pchip" style="cursor:pointer;padding:6px 12px">Hipertensiune</button>
+        <button onclick="selectCondition('Diabet tip 2')" class="pchip" style="cursor:pointer;padding:6px 12px">Diabet tip 2</button>
+        <button onclick="selectCondition('Astm')" class="pchip" style="cursor:pointer;padding:6px 12px">Astm</button>
+        <button onclick="selectCondition('Cancer')" class="pchip" style="cursor:pointer;padding:6px 12px">Cancer</button>
+        <button onclick="selectCondition('Aritmie')" class="pchip" style="cursor:pointer;padding:6px 12px">Aritmie</button>
+        <button onclick="selectCondition('Epilepsie')" class="pchip" style="cursor:pointer;padding:6px 12px">Epilepsie</button>
+      </div>
+    </div>
+    <button class="m-btn" onclick="confirmAddCondition()">Adaugă</button>
+    <button class="m-btn m-btn-ghost" onclick="closeModal('add-condition-modal')">Anulează</button>
+  </div>
+</div>
+
 <!-- SOS Modal -->
 <div class="sos-modal" id="sos-modal">
   <div class="sos-sheet">
-    <div class="sos-icon">🆘</div>
+    <div class="sos-icon">
+      <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+    </div>
     <div style="font-size:22px;font-weight:900">Urgență medicală</div>
     <div class="sos-info">
       <strong>Transmis automat la 112:</strong><br>
-      📍 Str. M. Eminescu 14, București<br>
-      ❤️ BPM: 142 · TAS: 138/89 · SpO2: 98%<br>
-      💊 Bisoprolol 2.5mg · Alprazolam 0.25mg<br>
-      ⚠️ Alergii: Penicilină, Ibuprofen
+      Str. M. Eminescu 14, București<br>
+      BPM: 142 · TAS: 138/89 · SpO2: 98%<br>
+      Bisoprolol 2.5mg · Alprazolam 0.25mg<br>
+      Alergii: Penicilină, Ibuprofen
     </div>
     <div class="sos-btns">
-      <button class="sb-btn sb-red" onclick="call112()">📞 Sună 112</button>
-      <button class="sb-btn sb-green" onclick="openWA('40722100200','Dr. Ionescu')">📱 Contactează Dr. Ionescu</button>
+      <button class="sb-btn sb-red" onclick="call112()">Sună 112</button>
+      <button class="sb-btn" style="background:linear-gradient(135deg,#FF8A50,#FF4D6D);color:#fff" onclick="notifyNearby()">Anunță persoana apropiată</button>
+      <button class="sb-btn sb-green" onclick="openWA('40725377568','Dr. Ionescu')">Contactează Dr. Ionescu</button>
       <button class="sb-btn sb-ghost" onclick="closeSOS()">Anulează</button>
     </div>
   </div>
 </div>
 
 <script>
-// ═══ DATA ═══
+// SVG ICON HELPERS
+const SVG_HEART = `<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="color:var(--r)"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>`;
+const SVG_LOCK = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>`;
+const SVG_PILL = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M10.5 20.5L3.5 13.5a5 5 0 017.07-7.07l7 7a5 5 0 01-7.07 7.07z"/><line x1="9" y1="9" x2="15" y2="15"/></svg>`;
+
+// DATA
 const METRICS_ALL = [
-  {id:'bpm',icon:'❤️',name:'Frecvență cardiacă',val:()=>Math.round(liveBpm),unit:'bpm',trend:'↑ 38 de la baseline',trendClass:'cr'},
-  {id:'bp',icon:'🩸',name:'Tensiune arterială',val:()=>'138/89',unit:'mmHg',trend:'↑ Ușor ridicată',trendClass:'cy'},
-  {id:'spo2',icon:'🫁',name:'SpO₂',val:()=>'98',unit:'%',trend:'✓ Normal',trendClass:'cg'},
-  {id:'sleep',icon:'😴',name:'Somn',val:()=>'6h 42m',unit:'',trend:'↓ Sub optim',trendClass:'cy'},
-  {id:'hrv',icon:'💪',name:'HRV',val:()=>'38',unit:'ms',trend:'↓ Redus',trendClass:'cr'},
-  {id:'temp',icon:'🌡️',name:'Temperatură',val:()=>'36.7',unit:'°C',trend:'✓ Normal',trendClass:'cg'},
-  {id:'stress',icon:'🧠',name:'Nivel stres',val:()=>'72',unit:'/100',trend:'↑ Ridicat',trendClass:'cr'},
-  {id:'glucose',icon:'🍬',name:'Glucoză',val:()=>'95',unit:'mg/dl',trend:'✓ Normal',trendClass:'cg'},
-  {id:'cal',icon:'🔥',name:'Calorii arse',val:()=>'1,842',unit:'kcal',trend:'→ 73% din țintă',trendClass:'t2'},
-  {id:'weight',icon:'⚖️',name:'Greutate',val:()=>'78.4',unit:'kg',trend:'→ Stabil',trendClass:'t2'},
+  {id:'bpm',icon:SVG_HEART,name:'Frecvență cardiacă',val:()=>Math.round(liveBpm),unit:'bpm',trend:'38 de la baseline',trendClass:'cr'},
+  {id:'bp',icon:`<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>`,name:'Tensiune arterială',val:()=>'138/89',unit:'mmHg',trend:'Ușor ridicată',trendClass:'cy'},
+  {id:'spo2',icon:`<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 22a10 10 0 100-20 10 10 0 000 20z"/><path d="M12 8v8M8 12h8"/></svg>`,name:'SpO₂',val:()=>'98',unit:'%',trend:'Normal',trendClass:'cg'},
+  {id:'sleep',icon:`<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>`,name:'Somn',val:()=>'6h 42m',unit:'',trend:'Sub optim',trendClass:'cy'},
+  {id:'hrv',icon:`<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>`,name:'HRV',val:()=>'38',unit:'ms',trend:'Redus',trendClass:'cr'},
+  {id:'temp',icon:`<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 14.76V3.5a2.5 2.5 0 00-5 0v11.26a4.5 4.5 0 105 0z"/></svg>`,name:'Temperatură',val:()=>'36.7',unit:'°C',trend:'Normal',trendClass:'cg'},
+  {id:'stress',icon:`<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M8 15s1.5-2 4-2 4 2 4 2M9 9h.01M15 9h.01"/></svg>`,name:'Nivel stres',val:()=>'72',unit:'/100',trend:'Ridicat',trendClass:'cr'},
+  {id:'glucose',icon:`<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>`,name:'Glucoză',val:()=>'95',unit:'mg/dl',trend:'Normal',trendClass:'cg'},
+  {id:'cal',icon:`<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/></svg>`,name:'Calorii arse',val:()=>'1,842',unit:'kcal',trend:'73% din țintă',trendClass:'t2'},
+  {id:'weight',icon:`<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3a1 1 0 100 2 1 1 0 000-2zM5 7h14l-1 13H6L5 7z"/></svg>`,name:'Greutate',val:()=>'78.4',unit:'kg',trend:'Stabil',trendClass:'t2'},
 ];
 let activeMetrics = ['bpm','bp','spo2','sleep','hrv','stress'];
 let editMode = false;
-let currentView = 'me'; // 'me' or trusted person index
+let currentView = 'me';
 let addTPCtx = 'client';
 
 const EMRG_WORDS = [/\bmor\b/i,/murit/i,/mori\b/i,/ajutor/i,/help\b/i,/urgent/i,/durere.*piept/i,/piept.*doare/i,/nu.*respir/i,/respir.*greu/i,/\b112\b/,/ambulan/i,/le[sș]in/i,/atac.*cord/i,/infarct/i,/dying/i,/chest.*pain/i,/mi.*e rau/i,/nu ma simt/i];
-const AI_REPLIES = ['Înțeleg. Am actualizat jurnalul tău medical. 💙','Mulțumesc că mi-ai spus. Rămâi hidratat.','Am notat. Dacă simptomele persistă, recomand o consultație cu Dr. Ionescu.','Bine notat! Stresul afectează BPM-ul și tensiunea. Încearcă să respiri adânc. 🫁','Am înregistrat asta. Monitorez în continuare.'];
+const AI_REPLIES = ['Inteleg. Am actualizat jurnalul tau medical.','Multumesc ca mi-ai spus. Ramai hidratat.','Am notat. Daca simptomele persista, recomand o consultatie cu Dr. Ionescu.','Bine notat! Stresul afecteaza BPM-ul si tensiunea. Incearca sa respiri adanc.','Am inregistrat asta. Monitorizez in continuare.'];
 let aiIdx = 0;
 
-let clTrustedPersons = [];
+let clTrustedPersons = [
+  {id:'tp_dr',name:'Dr. Alexandru Ionescu',role:'Medic Cardiolog',phone:'40725377568',initials:'AI',color:'linear-gradient(135deg,var(--g),var(--p))',perms:{heart:true,emrg:true,sleep:false,act:false,med:true,hist:true,loc:true},thresholds:{bpmHigh:100,spo2Low:95},bpm:68,isDoctor:true},
+  {id:'tp_mama',name:'Mihai Popescu',role:'Prieten de familie',phone:'40775584162',initials:'MP',color:'linear-gradient(135deg,#9E77FF,#4F8EF7)',perms:{heart:true,emrg:true,sleep:false,act:false,med:false,hist:false,loc:true},thresholds:{bpmHigh:110,spo2Low:93},bpm:74},
+];
 let specTrustedPersons = [];
 
 let liveBpm = 142, bpmDir = 1;
+let deviceConnected = true;
+let newAccountName = '';
 
 const clFiles = [
   {name:'Holter_24h_aug2025.pdf',date:'15 Aug 2025',type:'pdf',by:'Dr. Ionescu'},
@@ -756,69 +1198,169 @@ const specFiles = [
 ];
 
 const clThreads = [
-  {id:'dr',name:'Dr. Alexandru Ionescu',initials:'AI',color:'linear-gradient(135deg,var(--g),var(--p))',phone:'40722100200',isDoctor:true,
-   msgs:[{from:'other',text:'Bună ziua, Andrei. Am primit alerta BPM ridicat. Cum te simți?',time:'14:32'},{from:'me',text:'Bună ziua, doctore. Cred că e stres. Mă simt mai bine.',time:'14:35'},{from:'other',text:'Bine. Dacă BPM-ul nu scade sub 100 în 20min, sunați-mă.',time:'14:36'}]},
-  {id:'mom',name:'Maria (Mamă)',initials:'M',color:'linear-gradient(135deg,#FF9F0A,#FF4D6D)',phone:'40722111000',isDoctor:false,
-   msgs:[{from:'other',text:'Andrei, ai primit alertă! Ești bine? Sună-mă!',time:'14:33'},{from:'me',text:'Mamă, sunt bine, nu te îngrijora. 😊',time:'14:35'}]},
+  {id:'dr',name:'Dr. Alexandru Ionescu',initials:'AI',color:'linear-gradient(135deg,var(--g),var(--p))',phone:'40725377568',isDoctor:true,
+   msgs:[{from:'other',text:'Buna ziua, Andrei. Am primit alerta BPM ridicat. Cum te simti?',time:'14:32'},{from:'me',text:'Buna ziua, doctore. Cred ca e stres. Ma simt mai bine.',time:'14:35'},{from:'other',text:'Bine. Daca BPM-ul nu scade sub 100 in 20min, sunati-ma.',time:'14:36'}]},
+  {id:'mom',name:'Maria (Mama)',initials:'M',color:'linear-gradient(135deg,#FF9F0A,#FF4D6D)',phone:'40744687791',isDoctor:false,
+   msgs:[{from:'other',text:'Andrei, ai primit alerta! Esti bine? Suna-ma!',time:'14:33'},{from:'me',text:'Mama, sunt bine, nu te ingrijora.',time:'14:35'}]},
 ];
 const specThreads = [
   {id:'andrei',name:'Andrei Marinescu',initials:'AM',color:'linear-gradient(135deg,#FF9F0A,#FF4D6D)',phone:'40722000001',isPatient:true,
-   msgs:[{from:'me',text:'Bună ziua, Andrei. Am primit alerta BPM. Cum te simți?',time:'14:32'},{from:'other',text:'Bună, doctore. Cred că e stres. Mă simt mai bine.',time:'14:35'}]},
+   msgs:[{from:'me',text:'Buna ziua, Andrei. Am primit alerta BPM. Cum te simti?',time:'14:32'},{from:'other',text:'Buna, doctore. Cred ca e stres. Ma simt mai bine.',time:'14:35'}]},
   {id:'ion',name:'Ion Popa',initials:'IP',color:'linear-gradient(135deg,var(--pu),var(--p))',phone:'40722500600',isPatient:true,
-   msgs:[{from:'other',text:'Doctore, am luat ieri Bisoprolol 5mg în loc de 2.5mg. E ok?',time:'10:20'},{from:'me',text:'Nu e gravă, dar atenție pe viitor. Monitorizați pulsul azi.',time:'10:45'}]},
-  {id:'carmen',name:'Carmen Ionescu',initials:'CI',color:'linear-gradient(135deg,var(--pu),var(--r))',phone:'40722100201',isPatient:false,
-   msgs:[{from:'other',text:'Sasha, nu uita că avem cina la 19:00!',time:'12:00'},{from:'me',text:'Știu 😄 Termin la 18:00.',time:'12:05'}]},
+   msgs:[{from:'other',text:'Doctore, am luat ieri Bisoprolol 5mg in loc de 2.5mg. E ok?',time:'10:20'},{from:'me',text:'Nu e grava, dar atentie pe viitor. Monitorizati pulsul azi.',time:'10:45'}]},
+  {id:'carmen',name:'Carmen Ionescu',initials:'CI',color:'linear-gradient(135deg,var(--pu),var(--r))',phone:'40775584162',isPatient:false,
+   msgs:[{from:'other',text:'Sasha, nu uita ca avem cina la 19:00!',time:'12:00'},{from:'me',text:'Stiu! Termin la 18:00.',time:'12:05'}]},
 ];
 const specPatients = [
-  {id:'andrei',name:'Andrei Marinescu',initials:'AM',age:28,color:'linear-gradient(135deg,#FF9F0A,#FF4D6D)',phone:'40722000001',status:'alert',statusText:'Alertă BPM',vitals:{bpm:142,bp:'138/89',spo2:98,hrv:38,stress:72},conditions:['Hipertensiune gr. I','Anxietate'],meds:['Bisoprolol 2.5mg/zi','Alprazolam 0.25mg','Vitamina D3'],allergies:['Penicilină','Ibuprofen'],lastVisit:'12 Sep 2025',aiRec:'Tahicardie sinusală posibil datorată stresului și somnului insuficient. A raportat cefalee la prânz.',conflict:'⚠️ Bisoprolol + Alprazolam: risc potențare bradicardică. Coordonați cu Dr. Pop.'},
-  {id:'ion',name:'Ion Popa',initials:'IP',age:64,color:'linear-gradient(135deg,var(--pu),var(--p))',phone:'40722500600',status:'ok',statusText:'Normal',vitals:{bpm:72,bp:'125/80',spo2:97,hrv:52,stress:30},conditions:['Cardiopatie ischemică','Diabet tip 2'],meds:['Metoprolol 50mg','Metformin 1000mg','Aspenter 75mg'],allergies:['Sulfamide'],lastVisit:'28 Sep 2025',aiRec:'Parametri stabili. Glicemia: 142 mg/dl — ușor crescută. Recomand ajustarea dietei.',conflict:null},
-  {id:'maria',name:'Maria Costea',initials:'MC',age:45,color:'linear-gradient(135deg,var(--g),var(--p))',phone:'40722700800',status:'monitor',statusText:'Monitorizare',vitals:{bpm:88,bp:'130/85',spo2:98,hrv:45,stress:55},conditions:['Aritmie SVT','Tiroidă hiperactivă'],meds:['Nebivolol 5mg','Tyrothyrox 50mcg'],allergies:[],lastVisit:'15 Oct 2025',aiRec:'BPM ușor crescut. Fără episoade aritmice în 48h.',conflict:null},
-  {id:'gh',name:'Gheorghe Dima',initials:'GD',age:71,color:'linear-gradient(135deg,var(--y),var(--or))',phone:'40722900100',status:'ok',statusText:'Normal',vitals:{bpm:65,bp:'118/75',spo2:96,hrv:41,stress:22},conditions:['Post-infarct (2022)','HTA gr. II'],meds:['Bisoprolol 5mg','Ramipril 10mg','Atorvastatin 40mg','Aspirina 75mg'],allergies:['Codeine'],lastVisit:'1 Oct 2025',aiRec:'Pacient stabil post-infarct. Toți parametrii în limite normale.',conflict:null},
+  {id:'andrei',name:'Andrei Marinescu',initials:'AM',age:28,color:'linear-gradient(135deg,#FF9F0A,#FF4D6D)',phone:'40722000001',status:'alert',statusText:'Alertă BPM',vitals:{bpm:142,bp:'138/89',spo2:98,hrv:38,stress:72},conditions:['Hipertensiune gr. I','Anxietate'],meds:['Bisoprolol 2.5mg/zi','Alprazolam 0.25mg','Vitamina D3'],allergies:['Penicilină','Ibuprofen'],lastVisit:'12 Sep 2025',aiRec:'Tahicardie sinusală posibil datorată stresului și somnului insuficient.',conflict:'Bisoprolol + Alprazolam: risc potențare bradicardică. Coordonați cu Dr. Pop.',bpmHistory:[130,134,136,138,140,142,141,142],notifs:{bpmHigh:100,spo2Low:95,sos:true}},
+  {id:'ion',name:'Ion Popa',initials:'IP',age:64,color:'linear-gradient(135deg,var(--pu),var(--p))',phone:'40722500600',status:'ok',statusText:'Normal',vitals:{bpm:72,bp:'125/80',spo2:97,hrv:52,stress:30},conditions:['Cardiopatie ischemică','Diabet tip 2'],meds:['Metoprolol 50mg','Metformin 1000mg','Aspenter 75mg'],allergies:['Sulfamide'],lastVisit:'28 Sep 2025',aiRec:'Parametri stabili. Glicemia: 142 mg/dl — ușor crescută.',conflict:null,bpmHistory:[70,72,71,73,72,71,72,72],notifs:{bpmHigh:100,spo2Low:95,sos:true}},
+  {id:'maria',name:'Maria Costea',initials:'MC',age:45,color:'linear-gradient(135deg,var(--g),var(--p))',phone:'40722700800',status:'monitor',statusText:'Monitorizare',vitals:{bpm:88,bp:'130/85',spo2:98,hrv:45,stress:55},conditions:['Aritmie SVT','Tiroidă hiperactiva'],meds:['Nebivolol 5mg','Tyrothyrox 50mcg'],allergies:[],lastVisit:'15 Oct 2025',aiRec:'BPM ușor crescut. Fără episoade aritmice în 48h.',conflict:null,bpmHistory:[82,84,86,88,89,88,87,88],notifs:{bpmHigh:100,spo2Low:95,sos:true}},
+  {id:'gh',name:'Gheorghe Dima',initials:'GD',age:71,color:'linear-gradient(135deg,var(--y),var(--or))',phone:'40722900100',status:'ok',statusText:'Normal',vitals:{bpm:65,bp:'118/75',spo2:96,hrv:41,stress:22},conditions:['Post-infarct (2022)','HTA gr. II'],meds:['Bisoprolol 5mg','Ramipril 10mg','Atorvastatin 40mg','Aspirina 75mg'],allergies:['Codeine'],lastVisit:'1 Oct 2025',aiRec:'Pacient stabil post-infarct. Toți parametrii în limite normale.',conflict:null,bpmHistory:[63,65,64,65,63,64,65,65],notifs:{bpmHigh:90,spo2Low:94,sos:true}},
+  {id:'elena',name:'Elena Văcaru',initials:'EV',age:52,color:'linear-gradient(135deg,var(--p),var(--pu))',phone:'40722300400',status:'ok',statusText:'Normal',vitals:{bpm:76,bp:'128/83',spo2:97,hrv:48,stress:35},conditions:['Hipertensiune','Migrena cronică'],meds:['Lisinopril 10mg','Sumatriptan 50mg'],allergies:[],lastVisit:'5 Oct 2025',aiRec:'Parametri stabili. HTA sub control. Frecvența migrenelor redusă cu 40%.',conflict:null,bpmHistory:[74,76,75,77,76,74,75,76],notifs:{bpmHigh:100,spo2Low:95,sos:true}},
+  {id:'mircea',name:'Mircea Florescu',initials:'MF',age:38,color:'linear-gradient(135deg,#FF8A50,var(--y))',phone:'40722300500',status:'monitor',statusText:'Monitorizare',vitals:{bpm:95,bp:'135/88',spo2:96,hrv:38,stress:62},conditions:['Aritmie SVT','Stres profesional'],meds:['Metoprolol 25mg'],allergies:['Amiodarona'],lastVisit:'20 Sep 2025',aiRec:'Episoade SVT la efort. Frecvență cardiacă crescută, posibil stres.',conflict:null,bpmHistory:[88,92,95,98,100,95,93,95],notifs:{bpmHigh:100,spo2Low:95,sos:true}},
+  {id:'dana',name:'Dana Munteanu',initials:'DM',age:61,color:'linear-gradient(135deg,var(--r),var(--or))',phone:'40722300600',status:'alert',statusText:'Alertă BPM+SpO₂',vitals:{bpm:112,bp:'148/96',spo2:93,hrv:26,stress:80},conditions:['Insuficiență cardiacă gr.II','HTA'],meds:['Furosemid 40mg','Carvedilol 6.25mg','Enalapril 10mg'],allergies:['Aspirina'],lastVisit:'3 Oct 2025',aiRec:'Tahicardie + SpO₂ redus. Risc decompensare cardiacă. Consultație urgentă.',conflict:null,bpmHistory:[95,100,104,108,112,110,108,112],notifs:{bpmHigh:100,spo2Low:95,sos:true}},
+  {id:'vasile',name:'Vasile Năstase',initials:'VN',age:55,color:'linear-gradient(135deg,var(--g),var(--p))',phone:'40722300700',status:'ok',statusText:'Normal',vitals:{bpm:58,bp:'115/72',spo2:99,hrv:62,stress:18},conditions:['Post-bypass coronarian (2021)'],meds:['Bisoprolol 5mg','Atorvastatin 40mg','Aspenter 75mg'],allergies:[],lastVisit:'28 Sep 2025',aiRec:'Recuperare excelentă post-bypass. Toți parametrii în limite normale.',conflict:null,bpmHistory:[56,58,57,59,58,57,58,58],notifs:{bpmHigh:90,spo2Low:95,sos:true}},
+  {id:'ioana',name:'Ioana Preda',initials:'IP2',age:29,color:'linear-gradient(135deg,var(--pu),#FF9F0A)',phone:'40722300800',status:'monitor',statusText:'Monitorizare',vitals:{bpm:82,bp:'118/76',spo2:98,hrv:52,stress:45},conditions:['Sindrom WPW'],meds:['Flecainidă 100mg'],allergies:[],lastVisit:'10 Oct 2025',aiRec:'Fără episoade de preexcitație în ultimele 2 săptămâni. Continuă monitorizarea.',conflict:null,bpmHistory:[78,80,82,84,82,80,81,82],notifs:{bpmHigh:110,spo2Low:95,sos:true}},
+  {id:'radu',name:'Radu Barbu',initials:'RB',age:67,color:'linear-gradient(135deg,var(--y),var(--g))',phone:'40722300900',status:'ok',statusText:'Normal',vitals:{bpm:70,bp:'122/78',spo2:97,hrv:35,stress:30},conditions:['Fibrilație atrială','Diabet tip 2'],meds:['Apixaban 5mg','Metformin 1000mg','Digoxin 0.125mg'],allergies:['Warfarină'],lastVisit:'1 Oct 2025',aiRec:'FA controlată. Glicemia: 118 mg/dl — în limită. Risc tromboembolic controlat.',conflict:null,bpmHistory:[68,70,71,70,69,70,70,70],notifs:{bpmHigh:100,spo2Low:94,sos:true}},
 ];
 
-// ═══ LOGIN ═══
+// NAV tab index map for direction detection
+const TAB_ORDER = ['home','ai','trusted','msgs','files'];
+let prevTabIdx = 0;
+
+// LOGIN
 function loginAs(type) {
   document.getElementById('login').classList.add('hidden');
   if(type==='client') {
+    deviceConnected=true;
+    document.getElementById('cl-greeting-name').textContent='Andrei';
     document.getElementById('client-app').classList.add('show');
     renderMgrid(); renderClThreads(); renderFiles('cl');
+    renderClTpList(); rebuildDsStrip();
     initAiChat();
+    applyDeviceState();
   } else {
     document.getElementById('spec-app').classList.add('show');
     renderSpecPatients(); renderSpecThreads(); renderFiles('spec');
+    switchSpecMode('pro');
   }
 }
 
-// ═══ CLIENT NAV ═══
+// NEW ACCOUNT REGISTER
+function openNewAccountModal(){
+  document.getElementById('login').classList.add('hidden');
+  var ra=document.getElementById('register-app');
+  ra.style.display='flex';
+  // sync clock
+  var now=new Date();
+  var t=String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0');
+  document.getElementById('reg-clock').textContent=t;
+}
+function closeRegister(){
+  document.getElementById('register-app').style.display='none';
+  document.getElementById('login').classList.remove('hidden');
+}
+function regStep2Check(){
+  var ok=document.getElementById('reg-firstname').value.trim()&&
+         document.getElementById('reg-lastname').value.trim()&&
+         document.getElementById('reg-dob').value;
+  var btn=document.getElementById('reg-submit-btn');
+  var bar=document.getElementById('reg-step2-bar');
+  btn.style.opacity=ok?'1':'0.5';
+  btn.style.pointerEvents=ok?'auto':'none';
+  bar.style.background=ok?'var(--p)':'var(--b2)';
+}
+function submitRegister(){
+  var first=document.getElementById('reg-firstname').value.trim()||'Utilizator';
+  var last=document.getElementById('reg-lastname').value.trim();
+  newAccountName=first;
+  deviceConnected=false;
+  document.getElementById('register-app').style.display='none';
+  document.getElementById('client-app').classList.add('show');
+  document.getElementById('cl-greeting-name').textContent=first;
+  renderMgrid(); renderClThreads(); renderFiles('cl');
+  clTrustedPersons=[]; renderClTpList(); rebuildDsStrip();
+  initAiChat();
+  applyDeviceState();
+}
+// keep old name as alias
+function closeNewAccountModal(){ closeRegister(); }
+function createNewAccount(){ submitRegister(); }
+function applyDeviceState(){
+  document.getElementById('home-data-sections').style.display=deviceConnected?'':'none';
+  document.getElementById('no-device-overlay').style.display=deviceConnected?'none':'block';
+}
+function connectDevice(){
+  var btn=document.getElementById('connect-device-btn');
+  btn.disabled=true;
+  btn.innerHTML='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" style="animation:spin .8s linear infinite"><path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" opacity=".2"/><path d="M21 12a9 9 0 00-9-9"/></svg> Conectare...';
+  if(!document.getElementById('spin-style')){
+    var s=document.createElement('style');s.id='spin-style';
+    s.textContent='@keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}';
+    document.head.appendChild(s);
+  }
+  setTimeout(function(){
+    deviceConnected=true;
+    applyDeviceState();
+  },2000);
+}
+
+// CLIENT NAV with animation direction
 function clNav(tab) {
-  document.querySelectorAll('.cv').forEach(v=>{v.style.display='none';v.classList.remove('show')});
-  const view = document.getElementById(`cv-${tab}`);
-  if(tab==='ai') { view.style.display='flex'; view.classList.add('show'); }
-  else { view.style.display='block'; view.classList.add('show'); }
+  const newIdx = TAB_ORDER.indexOf(tab);
+  const goingRight = newIdx > prevTabIdx;
+  prevTabIdx = newIdx;
+
+  document.querySelectorAll('.cv').forEach(v=>{v.style.display='none';v.classList.remove('show','slide-left')});
+  const view = document.getElementById('cv-'+tab);
+  if(tab==='ai') { view.style.display='flex'; } else { view.style.display='block'; }
+  // Force reflow then add class
+  void view.offsetWidth;
+  if(goingRight) { view.classList.remove('slide-left'); } else { view.classList.add('slide-left'); }
+  view.classList.add('show');
+
   document.querySelectorAll('.btab').forEach(b=>b.classList.remove('active'));
   const map = {home:'btn-home',ai:'btn-ai',trusted:'btn-trusted',msgs:'btn-msgs',files:'btn-files'};
   document.getElementById(map[tab]).classList.add('active');
   document.getElementById('cl-scroller').scrollTop=0;
+  if(tab==='files') initAccountView();
 }
 
-// ═══ SPEC NAV ═══
+// SPEC MODE SWITCH
+var specMode='pro';
+function switchSpecMode(mode){
+  specMode=mode;
+  document.querySelectorAll('.stab').forEach(function(b){
+    var bm=b.dataset.mode||'pro';
+    b.style.display=(bm===mode)?'':'none';
+  });
+  document.querySelectorAll('.smode').forEach(function(b){b.classList.remove('active');});
+  document.getElementById('smode-'+mode).classList.add('active');
+  if(mode==='pro') specNav('pts'); else specNav('health');
+}
+
+// SPEC NAV
 function specNav(tab) {
   document.querySelectorAll('.sv').forEach(v=>v.classList.remove('show'));
-  document.getElementById(`sv-${tab}`).classList.add('show');
+  document.getElementById('sv-'+tab).classList.add('show');
   document.querySelectorAll('.stab').forEach(b=>b.classList.remove('active'));
-  document.getElementById(`stab-${tab}`).classList.add('active');
+  document.getElementById('stab-'+tab).classList.add('active');
   if(tab==='msgs') renderSpecThreads();
   if(tab==='files') renderFiles('spec');
 }
 
-// ═══ DATA SWITCHER ═══
+// DATA SWITCHER
 function switchData(id) {
   currentView = id;
-  document.querySelectorAll('.ds-pill').forEach(p=>p.classList.replace('active','inactive')||p.classList.remove('active'));
-  const strip = document.getElementById('ds-strip');
-  const btn = strip.querySelector(`[data-ds="${id}"]`) || document.getElementById('ds-me');
-  if(id==='me') { document.getElementById('ds-me').className='ds-pill active'; }
-  else { btn.className='ds-pill active'; }
+  document.querySelectorAll('.ds-pill').forEach(p=>{p.classList.remove('active');p.classList.add('inactive')});
+  if(id==='me') {
+    const el = document.getElementById('ds-me');
+    el.classList.remove('inactive'); el.classList.add('active');
+  } else {
+    const strip = document.getElementById('ds-strip');
+    const btn = strip.querySelector('[data-ds="'+id+'"]');
+    if(btn){btn.classList.remove('inactive');btn.classList.add('active');}
+  }
   updateHeroForView(id);
 }
 
@@ -827,14 +1369,12 @@ function updateHeroForView(id) {
   const bpmEl = document.getElementById('hero-bpm');
   const statusEl = document.getElementById('hero-status');
   const iconEl = document.getElementById('hero-icon');
-  const alertSub = document.getElementById('alert-sub');
   if(id==='me') {
     hero.className='hero-card mine';
     bpmEl.textContent = Math.round(liveBpm);
-    statusEl.className='hero-status hs-high'; statusEl.textContent='↑ Ridicat · baseline ~72';
-    iconEl.textContent='❤️';
-    alertSub.textContent='142 bpm · 8 min · Contacte notificate';
-    document.querySelector('.alert-bar').style.display='flex';
+    statusEl.className='hero-status hs-high'; statusEl.textContent='Ridicat · baseline ~72';
+    iconEl.innerHTML='<svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor" style="color:var(--r)"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>';
+    document.getElementById('home-alerts').style.display='block';
     renderMgrid(false);
   } else {
     const tp = clTrustedPersons.find(p=>p.id===id);
@@ -842,32 +1382,35 @@ function updateHeroForView(id) {
     hero.className='hero-card trusted';
     bpmEl.textContent = tp.bpm || '—';
     if(tp.perms.heart) {
-      statusEl.className='hero-status hs-ok'; statusEl.textContent='✓ Normal · ' + tp.name.split(' ')[0];
-      iconEl.textContent='💙';
+      statusEl.className='hero-status hs-ok'; statusEl.textContent='Normal · ' + tp.name.split(' ')[0];
+      iconEl.innerHTML='<svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor" style="color:var(--p)"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>';
     } else {
-      bpmEl.textContent='🔒';
+      bpmEl.textContent='—';
       statusEl.className='hero-status'; statusEl.style='background:var(--s3);color:var(--t2)'; statusEl.textContent='Date private';
     }
-    document.querySelector('.alert-bar').style.display='none';
+    document.getElementById('home-alerts').style.display='none';
     renderMgrid(true, tp);
   }
 }
 
 function rebuildDsStrip() {
   const strip = document.getElementById('ds-strip');
-  strip.innerHTML = `<button class="ds-pill active" id="ds-me" data-ds="me" onclick="switchData('me')">❤️ Eu</button>`;
+  strip.innerHTML = '<button class="ds-pill active" id="ds-me" data-ds="me" onclick="switchData(\'me\')">Eu</button>';
   clTrustedPersons.forEach(tp => {
+    if(tp.isDoctor) return;
     const btn = document.createElement('button');
     btn.className='ds-pill inactive';
     btn.dataset.ds = tp.id;
     btn.onclick = () => switchData(tp.id);
-    btn.textContent = (tp.perms.heart ? '❤️ ' : '🔒 ') + tp.name.split(' ')[0];
+    btn.textContent = tp.name.split(' ')[0];
     strip.appendChild(btn);
   });
 }
 
-// ═══ METRIC GRID ═══
-function renderMgrid(isTrusted=false, tp=null) {
+// METRIC GRID
+function renderMgrid(isTrusted, tp) {
+  isTrusted = isTrusted || false;
+  tp = tp || null;
   const grid = document.getElementById('mgrid');
   const container = document.getElementById('mgrid-container');
   grid.innerHTML='';
@@ -875,19 +1418,13 @@ function renderMgrid(isTrusted=false, tp=null) {
     const m = METRICS_ALL.find(x=>x.id===mid); if(!m) return;
     let val, unit, trend, trendCls;
     if(isTrusted && tp) {
-      if(!tp.perms.heart && ['bpm','bp','spo2','hrv'].includes(mid)) { val='🔒'; unit=''; trend='Acces restricționat'; trendCls='t3'; }
-      else if(!tp.perms.sleep && mid==='sleep') { val='🔒'; unit=''; trend='Acces restricționat'; trendCls='t3'; }
-      else if(!tp.perms.act && ['cal','weight'].includes(mid)) { val='🔒'; unit=''; trend='Acces restricționat'; trendCls='t3'; }
-      else if(!tp.perms.stress && mid==='stress') { val='🔒'; unit=''; trend='Acces restricționat'; trendCls='t3'; }
+      if(!tp.perms.heart && ['bpm','bp','spo2','hrv'].includes(mid)) { val='—'; unit=''; trend='Acces restrictionat'; trendCls='t3'; }
+      else if(!tp.perms.sleep && mid==='sleep') { val='—'; unit=''; trend='Acces restrictionat'; trendCls='t3'; }
+      else if(!tp.perms.act && ['cal','weight'].includes(mid)) { val='—'; unit=''; trend='Acces restrictionat'; trendCls='t3'; }
+      else if(!tp.perms.stress && mid==='stress') { val='—'; unit=''; trend='Acces restrictionat'; trendCls='t3'; }
       else { val=typeof m.val==='function'?m.val():m.val; unit=m.unit; trend=m.trend; trendCls=m.trendClass; }
     } else { val=typeof m.val==='function'?m.val():m.val; unit=m.unit; trend=m.trend; trendCls=m.trendClass; }
-    grid.innerHTML += `
-      <div class="mc">
-        <div class="mc-label">${m.icon} ${m.name}</div>
-        <div class="mc-val">${val}<span class="mc-unit"> ${unit}</span></div>
-        <div class="mc-trend ${trendCls}">${trend}</div>
-        <button class="mc-remove" onclick="removeMetric('${mid}')">×</button>
-      </div>`;
+    grid.innerHTML += '<div class="mc"><div class="mc-label">'+m.icon+' '+m.name+'</div><div class="mc-val">'+val+'<span class="mc-unit"> '+unit+'</span></div><div class="mc-trend '+trendCls+'">'+trend+'</div><button class="mc-remove" onclick="removeMetric(\''+mid+'\')">×</button></div>';
   });
   if(editMode) { container.classList.add('edit-mode'); document.getElementById('add-metric-btn').style.display='flex'; }
   else { container.classList.remove('edit-mode'); document.getElementById('add-metric-btn').style.display='none'; }
@@ -896,8 +1433,8 @@ function renderMgrid(isTrusted=false, tp=null) {
 function toggleEditMode() {
   editMode = !editMode;
   const btn = document.getElementById('edit-dash-btn');
-  if(editMode) { btn.classList.add('active'); btn.textContent='✓ Gata'; }
-  else { btn.classList.remove('active'); btn.textContent='✏️ Editează'; }
+  if(editMode) { btn.classList.add('active'); btn.textContent='Gata'; }
+  else { btn.classList.remove('active'); btn.textContent='Editează'; }
   renderMgrid();
 }
 
@@ -906,34 +1443,29 @@ function removeMetric(mid) {
   renderMgrid();
 }
 
-// ═══ METRIC PICKER ═══
+// METRIC PICKER
 let tempMetrics = [];
 function openMetricPicker() {
   tempMetrics = [...activeMetrics];
   const grid = document.getElementById('mpgrid'); grid.innerHTML='';
   METRICS_ALL.forEach(m => {
     const sel = tempMetrics.includes(m.id);
-    grid.innerHTML += `
-      <div class="mpc ${sel?'sel':''}" id="mpc-${m.id}" onclick="toggleMpc('${m.id}')">
-        <span class="mpc-icon">${m.icon}</span>
-        <div><div class="mpc-name">${m.name}</div></div>
-        <div class="mpc-check">${sel?'✓':''}</div>
-      </div>`;
+    grid.innerHTML += '<div class="mpc '+(sel?'sel':'')+'" id="mpc-'+m.id+'" onclick="toggleMpc(\''+m.id+'\')"><span class="mpc-icon">'+m.icon+'</span><div><div class="mpc-name">'+m.name+'</div></div><div class="mpc-check">'+(sel?'✓':'')+'</div></div>';
   });
   document.getElementById('metric-modal').classList.add('show');
 }
 function toggleMpc(id) {
-  const el = document.getElementById(`mpc-${id}`);
+  const el = document.getElementById('mpc-'+id);
   if(tempMetrics.includes(id)) { tempMetrics=tempMetrics.filter(m=>m!==id); el.classList.remove('sel'); el.querySelector('.mpc-check').textContent=''; }
   else if(tempMetrics.length<8) { tempMetrics.push(id); el.classList.add('sel'); el.querySelector('.mpc-check').textContent='✓'; }
 }
 function saveMetrics() { activeMetrics=[...tempMetrics]; closeMetricPicker(); renderMgrid(); }
 function closeMetricPicker() { document.getElementById('metric-modal').classList.remove('show'); }
 
-// ═══ AI CHAT ═══
+// AI CHAT
 function initAiChat() {
   const msgs = document.getElementById('cl-msgs'); msgs.innerHTML='';
-  appendAiMsg('Bună, Andrei! 👋 Am observat BPM ridicat (142 bpm) de 8 minute. Cum te simți acum? Ești în siguranță?');
+  appendAiMsg('Buna, Andrei! Am observat BPM ridicat (142 bpm) de 8 minute. Cum te simti acum? Esti in siguranta?');
 }
 
 function clSend() {
@@ -942,59 +1474,47 @@ function clSend() {
   inp.value=''; inp.style.height='auto';
   appendUserMsg(txt);
   showTyping();
-  setTimeout(()=>{ removeTyping(); if(EMRG_WORDS.some(p=>p.test(txt))) appendEmrg(); else appendAiMsg(AI_REPLIES[aiIdx++%AI_REPLIES.length]); },1200);
+  setTimeout(function(){ removeTyping(); if(EMRG_WORDS.some(p=>p.test(txt))) appendEmrg(); else appendAiMsg(AI_REPLIES[aiIdx++%AI_REPLIES.length]); },1200);
 }
 
 function appendUserMsg(txt) {
   const c=document.getElementById('cl-msgs'); const t=nowTime();
   const d=document.createElement('div'); d.className='mw user';
-  d.innerHTML=`<div class="bb user">${escHtml(txt)}</div><div class="bt">${t}</div>`;
+  d.innerHTML='<div class="bb user">'+escHtml(txt)+'</div><div class="bt">'+t+'</div>';
   c.appendChild(d); c.scrollTop=c.scrollHeight;
 }
 
 function appendAiMsg(txt) {
   const c=document.getElementById('cl-msgs'); const t=nowTime();
   const d=document.createElement('div'); d.className='mw ai';
-  d.innerHTML=`<div class="mn">Vita</div><div class="bb ai">${txt}</div><div class="bt">${t}</div>`;
+  d.innerHTML='<div class="mn">Vita</div><div class="bb ai">'+txt+'</div><div class="bt">'+t+'</div>';
   c.appendChild(d); c.scrollTop=c.scrollHeight;
 }
 
 function appendEmrg() {
   const c=document.getElementById('cl-msgs'); const t=nowTime();
   const d=document.createElement('div'); d.className='mw ai';
-  d.innerHTML=`
-    <div class="mn">Vita</div>
-    <div class="bb emrg">
-      <div class="emrg-title">🚨 URGENȚĂ DETECTATĂ</div>
-      Sunt <strong>aici cu tine</strong>. Rămâi calm și spune-mi: ești conștient și poți respira?<br><br>
-      Am pregătit datele tale medicale pentru 112 și am alertat contactele tale.
-      <div class="emrg-actions">
-        <button class="ea-btn ea-red" onclick="call112()">📞 Sună 112 acum</button>
-        <button class="ea-btn ea-blue" onclick="openWA('40722100200','Dr. Ionescu')">📱 Dr. Ionescu pe WhatsApp</button>
-        <button class="ea-btn ea-gray" onclick="notifyAll()">👥 Notifică toate contactele</button>
-      </div>
-    </div>
-    <div class="bt">${t}</div>`;
+  d.innerHTML='<div class="mn">Vita</div><div class="bb emrg"><div class="emrg-title">URGENTA DETECTATA</div>Sunt <strong>aici cu tine</strong>. Ramai calm si spune-mi: esti constient si poti respira?<br><br>Am pregatit datele tale medicale pentru 112 si am alertat contactele tale.<div class="emrg-actions"><button class="ea-btn ea-red" onclick="call112()">Suna 112 acum</button><button class="ea-btn ea-blue" onclick="openWA(\'40725377568\',\'Dr. Ionescu\')">Dr. Ionescu pe WhatsApp</button><button class="ea-btn ea-gray" onclick="notifyAll()">Notifica toate contactele</button></div></div><div class="bt">'+t+'</div>';
   c.appendChild(d); c.scrollTop=c.scrollHeight;
 }
 
 function showTyping() {
   const c=document.getElementById('cl-msgs');
   const d=document.createElement('div'); d.className='mw ai'; d.id='typing-ind';
-  d.innerHTML=`<div class="mn">Vita</div><div class="typing-b"><div class="td"></div><div class="td"></div><div class="td"></div></div>`;
+  d.innerHTML='<div class="mn">Vita</div><div class="typing-b"><div class="td"></div><div class="td"></div><div class="td"></div></div>';
   c.appendChild(d); c.scrollTop=c.scrollHeight;
 }
-function removeTyping(){const e=document.getElementById('typing-ind');if(e)e.remove();}
+function removeTyping(){var e=document.getElementById('typing-ind');if(e)e.remove();}
 
-// ═══ TRUSTED PERSONS ═══
+// TRUSTED PERSONS
 let addTPCtxCurrent='client';
 function openAddTP(ctx) {
   addTPCtxCurrent=ctx;
   document.getElementById('tp-name').value='';
   document.getElementById('tp-phone').value='';
   document.getElementById('tp-role').value='';
-  ['heart','emrg','loc'].forEach(id=>document.getElementById(`tp-tog-${id}`).classList.add('on'));
-  ['sleep','act','med','hist'].forEach(id=>document.getElementById(`tp-tog-${id}`).classList.remove('on'));
+  ['heart','emrg','loc'].forEach(function(id){document.getElementById('tp-tog-'+id).classList.add('on');});
+  ['sleep','act','med','hist'].forEach(function(id){document.getElementById('tp-tog-'+id).classList.remove('on');});
   document.getElementById('add-tp-modal').classList.add('show');
 }
 function closeAddTP(){document.getElementById('add-tp-modal').classList.remove('show');}
@@ -1004,7 +1524,7 @@ function saveTP() {
   const name=document.getElementById('tp-name').value.trim();
   const phone=(document.getElementById('tp-phone').value||'').replace(/\s+/g,'').replace(/^\+/,'');
   const role=document.getElementById('tp-role').value.trim()||'Contact';
-  if(!name){alert('Introduceți un nume!');return;}
+  if(!name){alert('Introduceti un nume!');return;}
   const perms={
     heart:document.getElementById('tp-tog-heart').classList.contains('on'),
     emrg:document.getElementById('tp-tog-emrg').classList.contains('on'),
@@ -1014,9 +1534,10 @@ function saveTP() {
     hist:document.getElementById('tp-tog-hist').classList.contains('on'),
     loc:document.getElementById('tp-tog-loc').classList.contains('on'),
   };
+  const thresholds={bpmHigh:+(document.getElementById('tp-notif-bpm').value)||100,spo2Low:+(document.getElementById('tp-notif-spo2').value)||95};
   const colors=['linear-gradient(135deg,#FF9F0A,#FF4D6D)','linear-gradient(135deg,#3DD68C,#4F8EF7)','linear-gradient(135deg,#9E77FF,#4F8EF7)','linear-gradient(135deg,#FF8A50,#FF4D6D)'];
-  const initials=name.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);
-  const tp={id:'tp_'+Date.now(),name,role,phone:phone||'40700000000',initials,color:colors[Math.floor(Math.random()*colors.length)],perms,bpm:72+Math.floor(Math.random()*20)};
+  const initials=name.split(' ').map(function(w){return w[0];}).join('').toUpperCase().slice(0,2);
+  const tp={id:'tp_'+Date.now(),name:name,role:role,phone:phone||'40700000000',initials:initials,color:colors[Math.floor(Math.random()*colors.length)],perms:perms,thresholds:thresholds,bpm:72+Math.floor(Math.random()*20)};
   if(addTPCtxCurrent==='client') {
     clTrustedPersons.push(tp); renderClTpList(); rebuildDsStrip();
   } else {
@@ -1028,56 +1549,36 @@ function saveTP() {
 function renderClTpList() {
   const el=document.getElementById('my-tp-list'); if(!el) return;
   if(clTrustedPersons.length===0) {
-    el.innerHTML=`<div class="tp-empty"><div class="tp-empty-icon">🫂</div><div class="tp-empty-title">Adaugă o persoană de încredere</div><div class="tp-empty-sub">Alege cine primește alerte și ce date pot vedea.</div><button class="tp-setup-btn" onclick="openAddTP('client')">+ Configurează Trusted Person</button></div>`;
+    el.innerHTML='<div class="tp-empty"><div class="tp-empty-icon"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div><div class="tp-empty-title">Adauga o persoana de incredere</div><div class="tp-empty-sub">Alege cine primeste alerte si ce date pot vedea.</div><button class="tp-setup-btn" onclick="openAddTP(\'client\')">Configureaza Trusted Person</button></div>';
     return;
   }
   el.innerHTML='';
-  clTrustedPersons.forEach((tp,i)=>{
+  clTrustedPersons.forEach(function(tp,i){
     const chips = [];
-    if(tp.perms.heart) chips.push('<span class="pchip on">❤️ BPM</span>');
-    if(tp.perms.emrg) chips.push('<span class="pchip on">🆘 Urgențe</span>');
-    if(tp.perms.sleep) chips.push('<span class="pchip on">😴 Somn</span>');
-    if(tp.perms.act) chips.push('<span class="pchip on">🏃 Activitate</span>');
-    if(tp.perms.med) chips.push('<span class="pchip on">💊 Medicație</span>');
-    if(tp.perms.hist) chips.push('<span class="pchip on">📋 Istoric</span>');
-    if(tp.perms.loc) chips.push('<span class="pchip on">📍 Locație</span>');
-    el.innerHTML+=`
-      <div class="tp-card">
-        <div class="tp-card-header">
-          <div class="tp-av" style="background:${tp.color}">${tp.initials}</div>
-          <div style="flex:1"><div class="tp-name">${tp.name}</div><div class="tp-role">${tp.role}</div></div>
-          <button style="background:none;border:none;color:var(--t3);cursor:pointer;font-size:18px" onclick="removeTp(${i},'client')">×</button>
-        </div>
-        <div style="font-size:11px;font-weight:700;color:var(--t2);margin-bottom:6px;text-transform:uppercase;letter-spacing:.08em">Poate vedea:</div>
-        <div class="tp-perm-chips">${chips.join('')}</div>
-        <div class="tp-actions">
-          <button class="ta-btn wa" onclick="openWA('${tp.phone}','${tp.name}')">📱 WhatsApp</button>
-          <button class="ta-btn" onclick="openAddTP('client')">✏️ Editează</button>
-        </div>
-      </div>`;
+    if(tp.perms.heart) chips.push('<span class="pchip on">BPM</span>');
+    if(tp.perms.emrg) chips.push('<span class="pchip on">Urgente</span>');
+    if(tp.perms.sleep) chips.push('<span class="pchip on">Somn</span>');
+    if(tp.perms.act) chips.push('<span class="pchip on">Activitate</span>');
+    if(tp.perms.med) chips.push('<span class="pchip on">Medicatie</span>');
+    if(tp.perms.hist) chips.push('<span class="pchip on">Istoric</span>');
+    if(tp.perms.loc) chips.push('<span class="pchip on">Locatie</span>');
+    var thr=tp.thresholds||{bpmHigh:100,spo2Low:95};
+    el.innerHTML+='<div class="tp-card"><div class="tp-card-header"><div class="tp-av" style="background:'+tp.color+'">'+tp.initials+'</div><div style="flex:1"><div class="tp-name">'+tp.name+'</div><div class="tp-role">'+tp.role+'</div></div><button style="background:none;border:none;color:var(--t3);cursor:pointer;font-size:18px" onclick="removeTp('+i+',\'client\')">×</button></div><div style="font-size:11px;font-weight:700;color:var(--t2);margin-bottom:6px;text-transform:uppercase;letter-spacing:.08em">Poate vedea:</div><div class="tp-perm-chips">'+chips.join('')+'</div><div style="margin-top:10px;font-size:11px;color:var(--t3)">Notificare: BPM &gt; '+thr.bpmHigh+' · SpO₂ &lt; '+thr.spo2Low+'%</div><div class="tp-actions"><button class="ta-btn wa" onclick="openWA(\''+tp.phone+'\',\''+tp.name+'\')">WhatsApp</button><button class="ta-btn" onclick="openAddTP(\'client\')">Editează</button></div></div>';
   });
 }
 
 function renderSpecTpList() {
   const el=document.getElementById('spec-tp-list'); if(!el) return;
   if(specTrustedPersons.length===0) {
-    el.innerHTML=`<div style="background:var(--s1);border:1px solid var(--b1);border-radius:20px;padding:28px;text-align:center"><div style="font-size:40px;margin-bottom:10px">🫂</div><div style="font-size:16px;font-weight:800;margin-bottom:6px">Configurează Trusted Persons</div><div style="font-size:13px;color:var(--t2);margin-bottom:16px">Adaugă persoane care să fie notificate în urgențe.</div><button style="background:linear-gradient(135deg,var(--p),var(--pu));color:#fff;border:none;border-radius:14px;padding:12px 24px;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--f)" onclick="openAddTP('spec')">+ Configurează</button></div>`;
+    el.innerHTML='<div style="background:var(--s1);border:1px solid var(--b1);border-radius:20px;padding:28px;text-align:center"><div style="display:flex;justify-content:center;margin-bottom:10px;color:var(--t2)"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div><div style="font-size:16px;font-weight:800;margin-bottom:6px">Configureaza Trusted Persons</div><div style="font-size:13px;color:var(--t2);margin-bottom:16px">Adauga persoane care sa fie notificate in urgente.</div><button style="background:linear-gradient(135deg,var(--p),var(--pu));color:#fff;border:none;border-radius:14px;padding:12px 24px;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--f)" onclick="openAddTP(\'spec\')">+ Configureaza</button></div>';
     return;
   }
   el.innerHTML='';
-  specTrustedPersons.forEach((tp,i)=>{
+  specTrustedPersons.forEach(function(tp,i){
     const chips = [];
-    if(tp.perms.heart) chips.push('<span class="pchip on">❤️ BPM</span>');
-    if(tp.perms.emrg) chips.push('<span class="pchip on">🆘 Urgențe</span>');
-    el.innerHTML+=`
-      <div class="pat-row" style="cursor:default">
-        <div style="width:44px;height:44px;border-radius:50%;background:${tp.color};display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800">${tp.initials}</div>
-        <div style="flex:1"><div style="font-size:14px;font-weight:700">${tp.name}</div><div style="font-size:12px;color:var(--t2)">${tp.role}</div><div class="tp-perm-chips" style="margin-top:4px">${chips.join('')}</div></div>
-        <div style="display:flex;gap:8px">
-          <button onclick="openWA('${tp.phone}','${tp.name}')" style="background:linear-gradient(135deg,#25D366,#128C7E);color:#fff;border:none;border-radius:12px;padding:8px 12px;font-size:12px;font-weight:700;cursor:pointer">📱</button>
-          <button onclick="removeTp(${i},'spec')" style="background:none;border:none;color:var(--t3);cursor:pointer;font-size:18px;width:32px">×</button>
-        </div>
-      </div>`;
+    if(tp.perms.heart) chips.push('<span class="pchip on">BPM</span>');
+    if(tp.perms.emrg) chips.push('<span class="pchip on">Urgente</span>');
+    el.innerHTML+='<div class="pat-row" style="cursor:default"><div style="width:44px;height:44px;border-radius:50%;background:'+tp.color+';display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800">'+tp.initials+'</div><div style="flex:1"><div style="font-size:14px;font-weight:700">'+tp.name+'</div><div style="font-size:12px;color:var(--t2)">'+tp.role+'</div><div class="tp-perm-chips" style="margin-top:4px">'+chips.join('')+'</div></div><div style="display:flex;gap:8px"><button onclick="openWA(\''+tp.phone+'\',\''+tp.name+'\')" style="background:linear-gradient(135deg,#25D366,#128C7E);color:#fff;border:none;border-radius:12px;padding:8px 12px;font-size:12px;font-weight:700;cursor:pointer">WA</button><button onclick="removeTp('+i+',\'spec\')" style="background:none;border:none;color:var(--t3);cursor:pointer;font-size:18px;width:32px">×</button></div></div>';
   });
 }
 
@@ -1086,215 +1587,434 @@ function removeTp(i,ctx) {
   else{specTrustedPersons.splice(i,1);renderSpecTpList();}
 }
 
-// ═══ MESSAGES ═══
+// MESSAGES
 function renderClThreads() {
   const el=document.getElementById('cl-threads'); if(!el) return; el.innerHTML='';
-  clThreads.forEach(t=>{
+  clThreads.forEach(function(t){
     const last=t.msgs[t.msgs.length-1];
-    el.innerHTML+=`
-      <div class="thread-item" onclick="openTov('cl','${t.id}')">
-        <div class="th-av" style="background:${t.color}">${t.initials}<div class="th-udot"></div></div>
-        <div style="flex:1;min-width:0">
-          <div class="th-name">${t.name}</div>
-          <div class="th-prev">${last.text}</div>
-        </div>
-        <div class="th-time">${last.time}</div>
-      </div>`;
+    el.innerHTML+='<div class="thread-item" onclick="openTov(\'cl\',\''+t.id+'\')"><div class="th-av" style="background:'+t.color+'">'+t.initials+'<div class="th-udot"></div></div><div style="flex:1;min-width:0"><div class="th-name">'+t.name+'</div><div class="th-prev">'+last.text+'</div></div><div class="th-time">'+last.time+'</div></div>';
   });
 }
 
 function renderSpecThreads() {
   const el=document.getElementById('spec-threads'); if(!el) return; el.innerHTML='';
-  specThreads.forEach(t=>{
+  specThreads.forEach(function(t){
     const last=t.msgs[t.msgs.length-1];
-    el.innerHTML+=`
-      <div class="thread-item" onclick="openTov('spec','${t.id}')">
-        <div class="th-av" style="background:${t.color}">${t.initials}${t.id==='andrei'?'<div class="th-udot"></div>':''}</div>
-        <div style="flex:1;min-width:0">
-          <div class="th-name">${t.name}${t.isPatient?'<span style="font-size:10px;color:var(--t3);margin-left:5px">· pacient</span>':''}</div>
-          <div class="th-prev">${last.text}</div>
-        </div>
-        <div class="th-time">${last.time}</div>
-      </div>`;
+    el.innerHTML+='<div class="thread-item" onclick="openTov(\'spec\',\''+t.id+'\')"><div class="th-av" style="background:'+t.color+'">'+t.initials+(t.id==='andrei'?'<div class="th-udot"></div>':'')+'</div><div style="flex:1;min-width:0"><div class="th-name">'+t.name+(t.isPatient?'<span style="font-size:10px;color:var(--t3);margin-left:5px">· pacient</span>':'')+'</div><div class="th-prev">'+last.text+'</div></div><div class="th-time">'+last.time+'</div></div>';
   });
 }
 
 let curTov={ctx:null,id:null};
 function openTov(ctx,id) {
-  curTov={ctx,id};
+  curTov={ctx:ctx,id:id};
   const threads=ctx==='cl'?clThreads:specThreads;
-  const t=threads.find(x=>x.id===id); if(!t) return;
-  const avEl=document.getElementById(`${ctx}-tov-av`);
-  const nameEl=document.getElementById(`${ctx}-tov-name`);
-  const msgsEl=document.getElementById(`${ctx}-tov-msgs`);
+  const t=threads.find(function(x){return x.id===id;}); if(!t) return;
+  const avEl=document.getElementById(ctx+'-tov-av');
+  const nameEl=document.getElementById(ctx+'-tov-name');
+  const msgsEl=document.getElementById(ctx+'-tov-msgs');
   avEl.style.background=t.color; avEl.textContent=t.initials;
   nameEl.textContent=t.name;
-  if(ctx==='cl') { document.getElementById('cl-tov-wa').onclick=()=>openWA(t.phone,t.name); }
+  if(ctx==='cl') { document.getElementById('cl-tov-wa').onclick=function(){openWA(t.phone,t.name);}; }
   if(ctx==='spec') {
-    document.getElementById('spec-tov-wa').onclick=()=>openWA(t.phone,t.name);
+    document.getElementById('spec-tov-wa').onclick=function(){openWA(t.phone,t.name);};
     const vBtn=document.getElementById('spec-tov-vitals');
-    if(t.isPatient){vBtn.style.display='block';vBtn.onclick=()=>openPD(t.id);}
+    if(t.isPatient){vBtn.style.display='block';vBtn.onclick=function(){openPD(t.id);};}
     else{vBtn.style.display='none';}
   }
   msgsEl.innerHTML='';
-  t.msgs.forEach(m=>{
-    const d=document.createElement('div'); d.className=`mw ${m.from==='me'?'user':'ai'}`;
-    d.innerHTML=`<div class="bb ${m.from==='me'?'user':'ai'}">${escHtml(m.text)}</div><div class="bt">${m.time}</div>`;
+  t.msgs.forEach(function(m){
+    const d=document.createElement('div'); d.className='mw '+(m.from==='me'?'user':'ai');
+    d.innerHTML='<div class="bb '+(m.from==='me'?'user':'ai')+'">'+escHtml(m.text)+'</div><div class="bt">'+m.time+'</div>';
     msgsEl.appendChild(d);
   });
   msgsEl.scrollTop=msgsEl.scrollHeight;
-  document.getElementById(`${ctx}-tov`).classList.add('show');
+  const tov=document.getElementById(ctx+'-tov');
+  tov.classList.add('show');
 }
 
 function closeTov(ctx) {
-  document.getElementById(`${ctx}-tov`).classList.remove('show');
+  document.getElementById(ctx+'-tov').classList.remove('show');
   if(ctx==='cl') renderClThreads(); else renderSpecThreads();
 }
 
 function tovSend(ctx) {
-  const inp=document.getElementById(`${ctx}-tov-input`);
+  const inp=document.getElementById(ctx+'-tov-input');
   const txt=inp.value.trim(); if(!txt) return;
   inp.value=''; inp.style.height='auto';
   const threads=ctx==='cl'?clThreads:specThreads;
-  const t=threads.find(x=>x.id===curTov.id); if(!t) return;
+  const t=threads.find(function(x){return x.id===curTov.id;}); if(!t) return;
   const time=nowTime();
-  t.msgs.push({from:'me',text:txt,time});
-  const msgsEl=document.getElementById(`${ctx}-tov-msgs`);
+  t.msgs.push({from:'me',text:txt,time:time});
+  const msgsEl=document.getElementById(ctx+'-tov-msgs');
   const d=document.createElement('div'); d.className='mw user';
-  d.innerHTML=`<div class="bb user">${escHtml(txt)}</div><div class="bt">${time}</div>`;
+  d.innerHTML='<div class="bb user">'+escHtml(txt)+'</div><div class="bt">'+time+'</div>';
   msgsEl.appendChild(d); msgsEl.scrollTop=msgsEl.scrollHeight;
 }
 
-// ═══ FILES ═══
+// FILES
 function renderFiles(ctx) {
-  const el=document.getElementById(`${ctx}-flist`||`${ctx}-files-list`);
   const listId = ctx==='cl' ? 'cl-flist' : 'spec-flist';
   const listEl = document.getElementById(listId); if(!listEl) return;
   const files=ctx==='cl'?clFiles:specFiles;
+  const pdfIcon='<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>';
+  const imgIcon='<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>';
+  const delIcon='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/></svg>';
   listEl.innerHTML='';
-  files.forEach((f,i)=>{
+  files.forEach(function(f,i){
     const isPdf=f.type==='pdf';
-    listEl.innerHTML+=`
-      <div class="fitem">
-        <div class="f-icon ${isPdf?'f-pdf':'f-img'}">${isPdf?'📄':'🖼️'}</div>
-        <div style="flex:1;min-width:0">
-          <div class="f-name">${f.name}</div>
-          <div class="f-meta">${f.date} · ${f.by}</div>
-        </div>
-        <button class="f-del" onclick="removeFile('${ctx}',${i})">🗑️</button>
-      </div>`;
+    listEl.innerHTML+='<div class="fitem"><div class="f-icon '+(isPdf?'f-pdf':'f-img')+'">'+(isPdf?pdfIcon:imgIcon)+'</div><div style="flex:1;min-width:0"><div class="f-name">'+f.name+'</div><div class="f-meta">'+f.date+' · '+f.by+'</div></div><button class="f-del" onclick="removeFile(\''+ctx+'\','+i+')">'+delIcon+'</button></div>';
   });
 }
 function trigUpload(id){document.getElementById(id).click();}
 function addFile(ctx,input){
   const files=ctx==='cl'?clFiles:specFiles;
-  Array.from(input.files).forEach(f=>{
+  Array.from(input.files).forEach(function(f){
     const ext=f.name.split('.').pop().toLowerCase();
     const now=new Date(); const months=['Ian','Feb','Mar','Apr','Mai','Iun','Iul','Aug','Sep','Oct','Nov','Dec'];
-    files.unshift({name:f.name,date:`${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()}`,type:ext,by:'Mine'});
+    files.unshift({name:f.name,date:now.getDate()+' '+months[now.getMonth()]+' '+now.getFullYear(),type:ext,by:'Mine'});
   });
   input.value=''; renderFiles(ctx);
 }
 function removeFile(ctx,i){
-  if(!confirm('Ștergeți documentul?')) return;
+  if(!confirm('Stergeti documentul?')) return;
   if(ctx==='cl') clFiles.splice(i,1); else specFiles.splice(i,1);
   renderFiles(ctx);
 }
 
-// ═══ PATIENTS (specialist) ═══
+// SPARKLINE helper
+function makeSpark(vals, color) {
+  if(!vals||vals.length<2) return '';
+  var mn=Math.min.apply(null,vals)-3, mx=Math.max.apply(null,vals)+3;
+  var w=100, h=28;
+  var pts=vals.map(function(v,i){
+    return (i/(vals.length-1)*w).toFixed(1)+','+(h-(v-mn)/(mx-mn)*h).toFixed(1);
+  }).join(' ');
+  return '<svg width="'+w+'" height="'+h+'" viewBox="0 0 '+w+' '+h+'" preserveAspectRatio="none"><polyline points="'+pts+'" fill="none" stroke="'+color+'" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+}
+
+// PATIENTS (specialist)
 function renderSpecPatients(){
-  const el=document.getElementById('spec-pat-list'); if(!el) return; el.innerHTML='';
-  specPatients.forEach(p=>{
-    const cc=p.status==='alert'?'r':p.status==='monitor'?'y':'g';
-    el.innerHTML+=`
-      <div class="pat-row" onclick="openPD('${p.id}')">
-        <div style="width:48px;height:48px;border-radius:50%;background:${p.color};display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:800">${p.initials}</div>
-        <div style="flex:1">
-          <div style="font-size:15px;font-weight:800">${p.name}</div>
-          <div style="font-size:12px;color:var(--t2)">${p.age} ani · ${p.conditions[0]}</div>
-          <div style="font-size:12px;color:var(--t2);margin-top:2px">❤️ ${p.vitals.bpm} bpm · 🩸 ${p.vitals.bp} · SpO₂ ${p.vitals.spo2}%</div>
-        </div>
-        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">
-          <span class="chip ${cc}">${p.statusText}</span>
-          <span style="font-size:11px;color:var(--t3)">${p.lastVisit}</span>
-        </div>
-      </div>`;
+  var el=document.getElementById('spec-pat-list'); if(!el) return;
+  var alerts=specPatients.filter(function(p){return p.status==='alert';}).length;
+  var monitors=specPatients.filter(function(p){return p.status==='monitor';}).length;
+  var subEl=document.getElementById('pts-sub'); if(subEl) subEl.textContent=specPatients.length+' pacienți · '+alerts+' alerte · '+monitors+' monitorizare';
+  var html='<div class="pat-grid">';
+  specPatients.forEach(function(p){
+    var sc=p.status==='alert'?'var(--r)':p.status==='monitor'?'var(--y)':'var(--g)';
+    var spark=makeSpark(p.bpmHistory,sc);
+    var badge=p.status!=='ok'?'<div style="background:'+(p.status==='alert'?'rgba(255,77,109,.15)':'rgba(255,184,48,.12)')+';border:1px solid '+(p.status==='alert'?'rgba(255,77,109,.3)':'rgba(255,184,48,.25)')+';border-radius:8px;padding:3px 8px;font-size:10px;font-weight:700;color:'+(p.status==='alert'?'var(--r)':'var(--y)')+';margin-top:7px;display:inline-block">'+p.statusText+'</div>':'';
+    var spo2c=p.vitals.spo2<95?'var(--r)':p.vitals.spo2<97?'var(--y)':'var(--g)';
+    html+='<div class="pat-gc '+p.status+'" onclick="openPD(\''+p.id+'\')">'+
+      '<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">'+
+      '<div style="width:32px;height:32px;border-radius:50%;background:'+p.color+';display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0">'+p.initials+'</div>'+
+      '<div style="flex:1;min-width:0"><div style="font-size:13px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+p.name+'</div>'+
+      '<div style="font-size:10px;color:var(--t2)">'+p.age+' ani</div></div></div>'+
+      '<div style="margin:0 -2px 4px">'+spark+'</div>'+
+      '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">'+
+      '<span style="font-size:10px;font-weight:600;color:var(--t2)">BPM</span>'+
+      '<span style="font-size:26px;font-weight:900;line-height:1;color:'+sc+'">'+p.vitals.bpm+'</span></div>'+
+      '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px">'+
+      '<div style="background:rgba(255,255,255,.04);border-radius:8px;padding:5px 6px;text-align:center">'+
+      '<div style="font-size:9px;color:var(--t3);font-weight:600;margin-bottom:1px">SpO₂</div>'+
+      '<div style="font-size:13px;font-weight:800;color:'+spo2c+'">'+p.vitals.spo2+'%</div></div>'+
+      '<div style="background:rgba(255,255,255,.04);border-radius:8px;padding:5px 6px;text-align:center">'+
+      '<div style="font-size:9px;color:var(--t3);font-weight:600;margin-bottom:1px">Tens.</div>'+
+      '<div style="font-size:11px;font-weight:800;color:var(--t1)">'+p.vitals.bp+'</div></div>'+
+      '<div style="background:rgba(255,255,255,.04);border-radius:8px;padding:5px 6px;text-align:center">'+
+      '<div style="font-size:9px;color:var(--t3);font-weight:600;margin-bottom:1px">Stres</div>'+
+      '<div style="font-size:13px;font-weight:800;color:'+(p.vitals.stress>70?'var(--r)':p.vitals.stress>50?'var(--y)':'var(--g)')+'">'+p.vitals.stress+'</div></div>'+
+      '</div>'+
+      badge+
+      '<div style="display:flex;gap:5px;margin-top:9px" onclick="event.stopPropagation()">'+
+      '<button onclick="openWA(\''+p.phone+'\',\''+p.name+'\')" style="flex:1;background:linear-gradient(135deg,#25D366,#128C7E);color:#fff;border:none;border-radius:9px;padding:7px 4px;font-size:10px;font-weight:700;cursor:pointer;font-family:var(--f);display:flex;align-items:center;justify-content:center;gap:3px">'+
+      '<svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.521.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg>'+
+      'WhatsApp</button>'+
+      '<button onclick="specNav(\'msgs\');setTimeout(function(){openTov(\'spec\',\''+p.id+'\');},100)" style="flex:1;background:rgba(79,142,247,.15);color:var(--p2);border:1px solid rgba(79,142,247,.25);border-radius:9px;padding:7px 4px;font-size:10px;font-weight:700;cursor:pointer;font-family:var(--f);display:flex;align-items:center;justify-content:center;gap:3px">'+
+      '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>'+
+      'Mesaj</button>'+
+      '</div>'+
+      '</div>';
   });
+  html+='</div>';
+  el.innerHTML=html;
 }
 
 function openPD(id) {
-  const p=specPatients.find(x=>x.id===id); if(!p) return;
-  const cc=p.status==='alert'?'cr':p.status==='monitor'?'cy':'cg';
+  currentPDPatientId=id;
+  const p=specPatients.find(function(x){return x.id===id;}); if(!p) return;
   document.getElementById('pd-av').style.background=p.color;
   document.getElementById('pd-av').textContent=p.initials;
   document.getElementById('pd-name').textContent=p.name;
-  document.getElementById('pd-meta').textContent=`${p.age} ani · ${p.conditions.join(' · ')}`;
-  document.getElementById('pd-wa').onclick=()=>openWA(p.phone,p.name);
-  document.getElementById('pd-msg-btn').onclick=()=>{closePD();specNav('msgs');setTimeout(()=>openTov('spec',p.id),100);};
+  document.getElementById('pd-meta').textContent=p.age+' ani · '+p.conditions.join(' · ');
+  document.getElementById('pd-wa').onclick=function(){openWA(p.phone,p.name);};
+  document.getElementById('pd-msg-btn').onclick=function(){closePD();specNav('msgs');setTimeout(function(){openTov('spec',p.id);},100);};
   const bpmColor=p.vitals.bpm>120?'var(--r)':p.vitals.bpm>90?'var(--y)':'var(--g)';
-  document.getElementById('pd-content').innerHTML=`
-    <div><span class="chip ${p.status==='alert'?'r':p.status==='monitor'?'y':'g'}">${p.statusText}</span></div>
-    <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px">
-      <div class="sc-sm" style="text-align:center"><div class="sc-label">BPM</div><div style="font-size:26px;font-weight:800;color:${bpmColor}">${p.vitals.bpm}</div></div>
-      <div class="sc-sm" style="text-align:center"><div class="sc-label">Tensiune</div><div style="font-size:20px;font-weight:800">${p.vitals.bp}</div></div>
-      <div class="sc-sm" style="text-align:center"><div class="sc-label">SpO₂</div><div style="font-size:26px;font-weight:800;color:var(--g)">${p.vitals.spo2}%</div></div>
-      <div class="sc-sm" style="text-align:center"><div class="sc-label">Stres</div><div style="font-size:26px;font-weight:800;color:var(--y)">${p.vitals.stress}</div></div>
-    </div>
-    <div class="ai-box"><div class="ai-box-title">🤖 Recomandare AI</div><div style="font-size:14px;color:var(--t2);line-height:1.6">${p.aiRec}</div>${p.conflict?`<div class="conflict-box">${p.conflict}</div>`:''}</div>
-    <div class="scard">
-      <div style="font-size:11px;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px">Medicație curentă</div>
-      ${p.meds.map(m=>`<div class="info-row"><span class="t2">💊</span><span style="font-size:13px;font-weight:500">${m}</span></div>`).join('')}
-    </div>
-    <div class="scard">
-      <div style="font-size:11px;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px">Alergii</div>
-      <div style="font-size:14px;color:${p.allergies.length?'var(--r)':'var(--t2)'}">${p.allergies.length?'⚠️ '+p.allergies.join(', '):'Nicio alergie înregistrată'}</div>
-    </div>
-    <div style="height:16px"></div>`;
+  const warnIcon='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>';
+  const pillIcon='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M10.5 20.5L3.5 13.5a5 5 0 017.07-7.07l7 7a5 5 0 01-7.07 7.07z"/><line x1="9" y1="9" x2="15" y2="15"/></svg>';
+  document.getElementById('pd-content').innerHTML=
+    '<div><span class="chip '+(p.status==='alert'?'r':p.status==='monitor'?'y':'g')+'">'+p.statusText+'</span></div>'+
+    '<div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px">'+
+    '<div class="sc-sm" style="text-align:center"><div class="sc-label">BPM</div><div style="font-size:26px;font-weight:800;color:'+bpmColor+'">'+p.vitals.bpm+'</div></div>'+
+    '<div class="sc-sm" style="text-align:center"><div class="sc-label">Tensiune</div><div style="font-size:20px;font-weight:800">'+p.vitals.bp+'</div></div>'+
+    '<div class="sc-sm" style="text-align:center"><div class="sc-label">SpO2</div><div style="font-size:26px;font-weight:800;color:var(--g)">'+p.vitals.spo2+'%</div></div>'+
+    '<div class="sc-sm" style="text-align:center"><div class="sc-label">Stres</div><div style="font-size:26px;font-weight:800;color:var(--y)">'+p.vitals.stress+'</div></div></div>'+
+    '<div class="ai-box"><div class="ai-box-title">Recomandare AI</div><div style="font-size:14px;color:var(--t2);line-height:1.6">'+p.aiRec+'</div>'+(p.conflict?'<div class="conflict-box"><span style="display:inline-flex;align-items:center;gap:5px;vertical-align:middle">'+warnIcon+' '+p.conflict+'</span></div>':'')+'</div>'+
+    '<div class="scard"><div style="font-size:11px;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px">Medicatie curenta</div>'+
+    p.meds.map(function(m){return '<div class="info-row"><span style="display:inline-flex;align-items:center;color:var(--t2)">'+pillIcon+'</span><span style="font-size:13px;font-weight:500">'+m+'</span></div>';}).join('')+'</div>'+
+    '<div class="scard"><div style="font-size:11px;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px">Alergii</div>'+
+    '<div style="font-size:14px;color:'+(p.allergies.length?'var(--r)':'var(--t2)')+'">'+
+    (p.allergies.length?'<span style="display:inline-flex;align-items:center;gap:5px">'+warnIcon+' '+p.allergies.join(', ')+'</span>':'Nicio alergie inregistrata')+'</div></div>'+
+    '<div class="scard"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px"><div style="font-size:11px;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.1em">Documente pacient</div><label style="background:var(--p);color:#fff;border:none;border-radius:10px;padding:6px 12px;font-size:11px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:5px"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Adaugă<input type="file" accept=".pdf,.jpg,.png" multiple style="display:none" onchange="addPDFile(this)"></label></div><div id="pd-flist"></div></div>'+
+    '<div class="scard" id="pd-notif-box"></div>'+
+    '<div style="height:16px"></div>';
   document.getElementById('pd-panel').classList.add('show');
+  renderPDFiles(id);
+  renderPDNotifs(p);
+}
+
+function renderPDNotifs(p) {
+  var el=document.getElementById('pd-notif-box'); if(!el) return;
+  var n=p.notifs||{bpmHigh:100,spo2Low:95,sos:true};
+  el.innerHTML='<div style="font-size:11px;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.1em;margin-bottom:12px">Setări notificări</div>'+
+    '<div class="info-row"><span style="font-size:13px;color:var(--t2)">Alertă BPM &gt;</span><div style="display:flex;align-items:center;gap:6px"><input type="number" value="'+n.bpmHigh+'" min="60" max="200" style="width:58px;background:var(--s2);border:1px solid var(--b2);border-radius:8px;padding:5px 8px;color:var(--t1);font-size:13px;font-weight:700;font-family:var(--f);outline:none;text-align:center" oninput="p.notifs.bpmHigh=+this.value" id="pn-bpm-'+p.id+'"><span style="font-size:12px;color:var(--t2)">bpm</span></div></div>'+
+    '<div class="info-row"><span style="font-size:13px;color:var(--t2)">Alertă SpO₂ &lt;</span><div style="display:flex;align-items:center;gap:6px"><input type="number" value="'+n.spo2Low+'" min="80" max="100" style="width:58px;background:var(--s2);border:1px solid var(--b2);border-radius:8px;padding:5px 8px;color:var(--t1);font-size:13px;font-weight:700;font-family:var(--f);outline:none;text-align:center" oninput="p.notifs.spo2Low=+this.value" id="pn-spo2-'+p.id+'"><span style="font-size:12px;color:var(--t2)">%</span></div></div>'+
+    '<div class="info-row" style="border-bottom:none"><span style="font-size:13px;color:var(--t2)">Alertă SOS activat</span><div class="tog '+(n.sos?'on':'')+'" onclick="this.classList.toggle(\'on\');p.notifs.sos=this.classList.contains(\'on\')"></div></div>';
 }
 function closePD(){document.getElementById('pd-panel').classList.remove('show');}
 
-// ═══ SOS ═══
+// SOS
 function showSOS(){document.getElementById('sos-modal').classList.add('show');}
 function closeSOS(){document.getElementById('sos-modal').classList.remove('show');}
-function call112(){closeSOS();window.location.href='tel:112';}
-function notifyAll(){const names=clTrustedPersons.map(t=>t.name).join(', ')||'Dr. Ionescu, Maria';alert(`✅ Alertă trimisă la:\n${names}`);}
+function notifyAll(){var names=clTrustedPersons.map(function(t){return t.name;}).join(', ')||'Dr. Ionescu, Maria';alert('Alerta trimisa la:\n'+names);}
 function openWA(phone,name){
-  const ctx=(typeof currentUser!='undefined'&&currentUser)?currentUser:'client';
-  const msg=encodeURIComponent(`Bună, sunt ${ctx==='spec'?'Dr. Alexandru Ionescu':'Andrei Marinescu'}. Vă contactez prin VitalLink.`);
-  window.open(`https://wa.me/${phone}?text=${msg}`,'_blank');
+  var msg=encodeURIComponent('Buna, va contactez prin Safety Net.');
+  window.open('https://wa.me/'+phone+'?text='+msg,'_blank');
 }
 
-// ═══ LIVE BPM ═══
-setInterval(()=>{
+// LIVE BPM
+setInterval(function(){
   liveBpm+=(Math.random()*3-1.5)*bpmDir;
   if(liveBpm>148)bpmDir=-1;if(liveBpm<136)bpmDir=1;
-  const v=Math.round(liveBpm);
-  const el=document.getElementById('hero-bpm');
+  var v=Math.round(liveBpm);
+  var el=document.getElementById('hero-bpm');
   if(el&&currentView==='me')el.textContent=v;
-  METRICS_ALL[0].val=()=>v;
+  METRICS_ALL[0].val=function(){return v;};
 },2000);
 
-setInterval(()=>{
-  const el=document.getElementById('dr-bpm');
-  if(el){const v=68+Math.round((Math.random()*2-1));el.textContent=v;}
+setInterval(function(){
+  var el=document.getElementById('dr-bpm');
+  if(el){var v=68+Math.round((Math.random()*2-1));el.textContent=v;}
 },3000);
 
-// ═══ CLOCK ═══
+// CLOCK
 function updateClock(){
-  const now=new Date();
-  const t=`${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
-  const el=document.getElementById('cl-clock');if(el)el.textContent=t;
+  var now=new Date();
+  var t=String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0');
+  var el=document.getElementById('cl-clock');if(el)el.textContent=t;
 }
 updateClock();setInterval(updateClock,15000);
 
-// ═══ TEXTAREA AUTO RESIZE ═══
-document.querySelectorAll('.chat-ta').forEach(ta=>{
+// TEXTAREA AUTO RESIZE
+document.querySelectorAll('.chat-ta').forEach(function(ta){
   ta.addEventListener('input',function(){this.style.height='auto';this.style.height=Math.min(this.scrollHeight,90)+'px';});
 });
 
-// ═══ UTILS ═══
-function nowTime(){const n=new Date();return`${String(n.getHours()).padStart(2,'0')}:${String(n.getMinutes()).padStart(2,'0')}`;}
+// SOS SUCCESS SCREEN
+function call112(){
+  closeSOS();
+  document.getElementById('sos-time-sent').textContent=nowTime();
+  const el=document.getElementById('sos-success');
+  el.style.display='flex';
+}
+function closeSosSuccess(){document.getElementById('sos-success').style.display='none';}
+
+function notifyNearby(){
+  const msg=encodeURIComponent('Clientul a folosit funcția de mesaj de urgență');
+  window.open('https://wa.me/40725377568?text='+msg,'_blank');
+  closeSOS();
+}
+
+// ACCOUNT - personal info
+const personalData={weight:'78.4',height:'182',age:'28',blood:'A+'};
+function openEditPersonal(){
+  document.getElementById('inp-weight').value=personalData.weight;
+  document.getElementById('inp-height').value=personalData.height;
+  document.getElementById('inp-age').value=personalData.age;
+  document.getElementById('inp-blood').value=personalData.blood;
+  document.getElementById('edit-personal-modal').classList.add('show');
+}
+function savePersonalInfo(){
+  personalData.weight=document.getElementById('inp-weight').value||personalData.weight;
+  personalData.height=document.getElementById('inp-height').value||personalData.height;
+  personalData.age=document.getElementById('inp-age').value||personalData.age;
+  personalData.blood=document.getElementById('inp-blood').value||personalData.blood;
+  document.getElementById('disp-weight').textContent=personalData.weight+' kg';
+  document.getElementById('disp-height').textContent=personalData.height+' cm';
+  document.getElementById('disp-age').textContent=personalData.age+' ani';
+  document.getElementById('disp-blood').textContent=personalData.blood;
+  closeModal('edit-personal-modal');
+}
+
+// ACCOUNT - conditions
+var conditions=['Hipertensiune gr. I','Anxietate'];
+function renderConditions(){
+  var el=document.getElementById('acc-conditions'); if(!el) return;
+  el.innerHTML='';
+  conditions.forEach(function(c,i){
+    el.innerHTML+='<span style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,77,109,.1);border:1px solid rgba(255,77,109,.2);border-radius:20px;padding:5px 12px;font-size:12px;font-weight:600;color:var(--r)">'+c+'<button onclick="removeCondition('+i+')" style="background:none;border:none;color:var(--r);cursor:pointer;font-size:14px;line-height:1;padding:0">×</button></span>';
+  });
+}
+function removeCondition(i){conditions.splice(i,1);renderConditions();}
+function addConditionTag(){document.getElementById('add-condition-modal').classList.add('show');}
+function selectCondition(c){document.getElementById('inp-condition').value=c;}
+function confirmAddCondition(){
+  var c=document.getElementById('inp-condition').value.trim(); if(!c) return;
+  conditions.push(c); renderConditions();
+  closeModal('add-condition-modal');
+}
+
+// ACCOUNT - devices
+var devices=[
+  {name:'Apple Watch Series 9',measures:'BPM · SpO₂ · HRV · Somn · Activitate',bat:72,icon:'⌚'},
+  {name:'iPhone 15 Pro',measures:'Pași · Locație · Microfon',bat:61,icon:'📱'},
+];
+function renderDevices(){
+  var el=document.getElementById('acc-devices'); if(!el) return;
+  el.innerHTML='';
+  devices.forEach(function(d){
+    var batColor=d.bat>30?'var(--g)':'var(--r)';
+    el.innerHTML+='<div style="background:var(--s1);border:1px solid var(--b1);border-radius:18px;padding:14px;margin-bottom:8px;display:flex;align-items:center;gap:12px">'+
+      '<div style="width:44px;height:44px;border-radius:12px;background:var(--s2);display:flex;align-items:center;justify-content:center;font-size:22px">'+d.icon+'</div>'+
+      '<div style="flex:1"><div style="font-size:14px;font-weight:700">'+d.name+'</div><div style="font-size:11px;color:var(--t2);margin-top:2px">'+d.measures+'</div></div>'+
+      '<div style="text-align:right;flex-shrink:0"><div style="font-size:13px;font-weight:700;color:'+batColor+'">'+d.bat+'%</div><div style="font-size:10px;color:var(--t3)">baterie</div></div></div>';
+  });
+}
+function addDevice(){
+  var popup=document.getElementById('device-popup');
+  document.getElementById('dev-scanning').style.display='block';
+  document.getElementById('dev-none').style.display='none';
+  popup.style.display='flex';
+  setTimeout(function(){
+    document.getElementById('dev-scanning').style.display='none';
+    document.getElementById('dev-none').style.display='block';
+  },2000);
+}
+function closeDevicePopup(){document.getElementById('device-popup').style.display='none';}
+
+// BASELINE
+var baselines={bpm:'72',bp:'120/80',spo2:'99',hrv:'55'};
+function openBaselineEdit(){
+  document.getElementById('bl-inp-bpm').value=baselines.bpm;
+  document.getElementById('bl-inp-bp').value=baselines.bp;
+  document.getElementById('bl-inp-spo2').value=baselines.spo2;
+  document.getElementById('bl-inp-hrv').value=baselines.hrv;
+  document.getElementById('baseline-modal').classList.add('show');
+}
+function saveBaseline(){
+  baselines.bpm=document.getElementById('bl-inp-bpm').value||baselines.bpm;
+  baselines.bp=document.getElementById('bl-inp-bp').value||baselines.bp;
+  baselines.spo2=document.getElementById('bl-inp-spo2').value||baselines.spo2;
+  baselines.hrv=document.getElementById('bl-inp-hrv').value||baselines.hrv;
+  document.getElementById('bl-bpm').textContent=baselines.bpm+' bpm';
+  document.getElementById('bl-bp').textContent=baselines.bp+' mmHg';
+  document.getElementById('bl-spo2').textContent=baselines.spo2+'%';
+  document.getElementById('bl-hrv').textContent=baselines.hrv+' ms';
+  closeModal('baseline-modal');
+}
+
+// THEME
+function toggleTheme(){
+  document.body.classList.toggle('light');
+  document.getElementById('theme-tog').classList.toggle('on');
+}
+
+// SOS KEYWORDS
+var sosKeywords=['ajutor','urgență','112','nu respir'];
+function renderKeywords(){
+  var el=document.getElementById('kw-list'); if(!el) return;
+  el.innerHTML='';
+  sosKeywords.forEach(function(k,i){
+    el.innerHTML+='<span class="kw-chip">'+k+'<button onclick="removeKeyword('+i+')" style="background:none;border:none;color:var(--p);cursor:pointer;font-size:14px;line-height:1;padding:0;margin-left:2px">×</button></span>';
+  });
+}
+function addKeyword(){
+  var inp=document.getElementById('kw-input'); if(!inp) return;
+  var v=inp.value.trim().toLowerCase(); if(!v) return;
+  if(!sosKeywords.includes(v)) sosKeywords.push(v);
+  inp.value=''; renderKeywords();
+}
+function removeKeyword(i){sosKeywords.splice(i,1);renderKeywords();}
+function updateKwSection(){
+  var micOn=document.getElementById('priv-mic')&&document.getElementById('priv-mic').classList.contains('on');
+  var dis=document.getElementById('sos-kw-disabled');
+  var con=document.getElementById('sos-kw-content');
+  var sec=document.getElementById('sos-kw-section');
+  if(!dis||!con||!sec) return;
+  if(micOn){dis.style.display='none';con.style.opacity='1';con.style.pointerEvents='auto';}
+  else{dis.style.display='block';con.style.opacity='0.35';con.style.pointerEvents='none';}
+}
+
+// GENERIC MODAL CLOSE
+function closeModal(id){document.getElementById(id).classList.remove('show');}
+
+// INIT ACCOUNT VIEW
+function initAccountView(){
+  renderConditions();
+  renderDevices();
+  renderKeywords();
+  updateKwSection();
+}
+
+// NOTIFICATION SETTINGS
+function openNotifSettings(){document.getElementById('notif-modal').classList.add('show');}
+function closeNotifSettings(){document.getElementById('notif-modal').classList.remove('show');}
+function saveNotifSettings(){closeNotifSettings();document.getElementById('notif-dot').style.display='none';}
+
+// FALL ALERT DISMISS
+function dismissFallAlert(btn){
+  var bar=btn.closest('.alert-bar');
+  bar.style.opacity='0';bar.style.transition='opacity .3s';
+  setTimeout(function(){bar.style.display='none';},300);
+}
+
+// PATIENT FILES
+var patientFilesData = {
+  andrei:[{name:'Holter_24h_aug2025.pdf',date:'15 Aug 2025',type:'pdf',by:'Dr. Ionescu'},{name:'EKG_oct2025.pdf',date:'3 Oct 2025',type:'pdf',by:'Dr. Ionescu'}],
+  ion:[{name:'Ecografie_cord_sep2025.pdf',date:'22 Sep 2025',type:'pdf',by:'Dr. Ionescu'}],
+  maria:[],
+  gh:[{name:'Post_infarct_protocol.pdf',date:'10 Mar 2023',type:'pdf',by:'Dr. Ionescu'}]
+};
+var currentPDPatientId = null;
+
+function renderPDFiles(patientId) {
+  var el=document.getElementById('pd-flist'); if(!el) return;
+  var files=patientFilesData[patientId]||[];
+  var pdfIcon='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>';
+  var imgIcon='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>';
+  var delIcon='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/></svg>';
+  if(files.length===0){el.innerHTML='<div style="font-size:12px;color:var(--t3);text-align:center;padding:12px 0">Niciun document adăugat</div>';return;}
+  el.innerHTML='';
+  files.forEach(function(f,i){
+    var isPdf=f.type==='pdf';
+    el.innerHTML+='<div class="fitem" style="margin-bottom:6px"><div class="f-icon '+(isPdf?'f-pdf':'f-img')+'">'+(isPdf?pdfIcon:imgIcon)+'</div><div style="flex:1;min-width:0"><div class="f-name" style="max-width:160px">'+f.name+'</div><div class="f-meta">'+f.date+' · '+f.by+'</div></div><button class="f-del" onclick="removePDFile(\''+patientId+'\','+i+')">'+delIcon+'</button></div>';
+  });
+}
+function removePDFile(patId,i){
+  patientFilesData[patId].splice(i,1);renderPDFiles(patId);
+}
+function addPDFile(input){
+  if(!currentPDPatientId) return;
+  var files=patientFilesData[currentPDPatientId]||(patientFilesData[currentPDPatientId]=[]);
+  Array.from(input.files).forEach(function(f){
+    var ext=f.name.split('.').pop().toLowerCase();
+    var now=new Date();var months=['Ian','Feb','Mar','Apr','Mai','Iun','Iul','Aug','Sep','Oct','Nov','Dec'];
+    files.unshift({name:f.name,date:now.getDate()+' '+months[now.getMonth()]+' '+now.getFullYear(),type:ext,by:'Dr. Ionescu'});
+  });
+  input.value='';renderPDFiles(currentPDPatientId);
+}
+
+// UTILS
+function nowTime(){var n=new Date();return String(n.getHours()).padStart(2,'0')+':'+String(n.getMinutes()).padStart(2,'0');}
 function escHtml(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 </script>
 </body>
